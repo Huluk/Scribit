@@ -1,0 +1,536 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C01C32B2CA00F937DD /* AppDelegate.swift */; };
+		03D417C31C32B2CA00F937DD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C21C32B2CA00F937DD /* Document.swift */; };
+		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
+		03D417C81C32B2CA00F937DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C71C32B2CA00F937DD /* Assets.xcassets */; };
+		03D417CB1C32B2CA00F937DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C91C32B2CA00F937DD /* MainMenu.xib */; };
+		03D417D61C32B2CA00F937DD /* ScribitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417D51C32B2CA00F937DD /* ScribitTests.swift */; };
+		03D417E11C32B2CA00F937DD /* ScribitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417E01C32B2CA00F937DD /* ScribitUITests.swift */; };
+		03D417EF1C32C22700F937DD /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417EE1C32C22700F937DD /* Canvas.swift */; settings = {ASSET_TAGS = (); }; };
+		03D417F21C32C74E00F937DD /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F11C32C74E00F937DD /* Page.swift */; settings = {ASSET_TAGS = (); }; };
+		03D417F71C32E89400F937DD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F61C32E89400F937DD /* Line.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03D417D21C32B2CA00F937DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D417B51C32B2CA00F937DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D417BC1C32B2CA00F937DD;
+			remoteInfo = Scribit;
+		};
+		03D417DD1C32B2CA00F937DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D417B51C32B2CA00F937DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D417BC1C32B2CA00F937DD;
+			remoteInfo = Scribit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		03D417BD1C32B2CA00F937DD /* Scribit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D417C01C32B2CA00F937DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		03D417C21C32B2CA00F937DD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		03D417C51C32B2CA00F937DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		03D417C71C32B2CA00F937DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03D417CA1C32B2CA00F937DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		03D417CC1C32B2CA00F937DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D417D11C32B2CA00F937DD /* ScribitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScribitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D417D51C32B2CA00F937DD /* ScribitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribitTests.swift; sourceTree = "<group>"; };
+		03D417D71C32B2CA00F937DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D417DC1C32B2CA00F937DD /* ScribitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScribitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D417E01C32B2CA00F937DD /* ScribitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribitUITests.swift; sourceTree = "<group>"; };
+		03D417E21C32B2CA00F937DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D417EE1C32C22700F937DD /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		03D417F11C32C74E00F937DD /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Page.swift; path = Data/Page.swift; sourceTree = "<group>"; };
+		03D417F61C32E89400F937DD /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Line.swift; path = Data/Line.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		03D417BA1C32B2CA00F937DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417CE1C32B2CA00F937DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417D91C32B2CA00F937DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03D417B41C32B2CA00F937DD = {
+			isa = PBXGroup;
+			children = (
+				03D417F01C32C70300F937DD /* Data */,
+				03D417BF1C32B2CA00F937DD /* Scribit */,
+				03D417D41C32B2CA00F937DD /* ScribitTests */,
+				03D417DF1C32B2CA00F937DD /* ScribitUITests */,
+				03D417BE1C32B2CA00F937DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		03D417BE1C32B2CA00F937DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03D417BD1C32B2CA00F937DD /* Scribit.app */,
+				03D417D11C32B2CA00F937DD /* ScribitTests.xctest */,
+				03D417DC1C32B2CA00F937DD /* ScribitUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03D417BF1C32B2CA00F937DD /* Scribit */ = {
+			isa = PBXGroup;
+			children = (
+				03D417C01C32B2CA00F937DD /* AppDelegate.swift */,
+				03D417C21C32B2CA00F937DD /* Document.swift */,
+				03D417C41C32B2CA00F937DD /* Document.xib */,
+				03D417C71C32B2CA00F937DD /* Assets.xcassets */,
+				03D417C91C32B2CA00F937DD /* MainMenu.xib */,
+				03D417CC1C32B2CA00F937DD /* Info.plist */,
+				03D417EE1C32C22700F937DD /* Canvas.swift */,
+			);
+			path = Scribit;
+			sourceTree = "<group>";
+		};
+		03D417D41C32B2CA00F937DD /* ScribitTests */ = {
+			isa = PBXGroup;
+			children = (
+				03D417D51C32B2CA00F937DD /* ScribitTests.swift */,
+				03D417D71C32B2CA00F937DD /* Info.plist */,
+			);
+			path = ScribitTests;
+			sourceTree = "<group>";
+		};
+		03D417DF1C32B2CA00F937DD /* ScribitUITests */ = {
+			isa = PBXGroup;
+			children = (
+				03D417E01C32B2CA00F937DD /* ScribitUITests.swift */,
+				03D417E21C32B2CA00F937DD /* Info.plist */,
+			);
+			path = ScribitUITests;
+			sourceTree = "<group>";
+		};
+		03D417F01C32C70300F937DD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				03D417F11C32C74E00F937DD /* Page.swift */,
+				03D417F61C32E89400F937DD /* Line.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		03D417BC1C32B2CA00F937DD /* Scribit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D417E51C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "Scribit" */;
+			buildPhases = (
+				03D417B91C32B2CA00F937DD /* Sources */,
+				03D417BA1C32B2CA00F937DD /* Frameworks */,
+				03D417BB1C32B2CA00F937DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Scribit;
+			productName = Scribit;
+			productReference = 03D417BD1C32B2CA00F937DD /* Scribit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		03D417D01C32B2CA00F937DD /* ScribitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D417E81C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "ScribitTests" */;
+			buildPhases = (
+				03D417CD1C32B2CA00F937DD /* Sources */,
+				03D417CE1C32B2CA00F937DD /* Frameworks */,
+				03D417CF1C32B2CA00F937DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03D417D31C32B2CA00F937DD /* PBXTargetDependency */,
+			);
+			name = ScribitTests;
+			productName = ScribitTests;
+			productReference = 03D417D11C32B2CA00F937DD /* ScribitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		03D417DB1C32B2CA00F937DD /* ScribitUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D417EB1C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "ScribitUITests" */;
+			buildPhases = (
+				03D417D81C32B2CA00F937DD /* Sources */,
+				03D417D91C32B2CA00F937DD /* Frameworks */,
+				03D417DA1C32B2CA00F937DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03D417DE1C32B2CA00F937DD /* PBXTargetDependency */,
+			);
+			name = ScribitUITests;
+			productName = ScribitUITests;
+			productReference = 03D417DC1C32B2CA00F937DD /* ScribitUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		03D417B51C32B2CA00F937DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Lars Hansen";
+				TargetAttributes = {
+					03D417BC1C32B2CA00F937DD = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					03D417D01C32B2CA00F937DD = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 03D417BC1C32B2CA00F937DD;
+					};
+					03D417DB1C32B2CA00F937DD = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 03D417BC1C32B2CA00F937DD;
+					};
+				};
+			};
+			buildConfigurationList = 03D417B81C32B2CA00F937DD /* Build configuration list for PBXProject "Scribit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 03D417B41C32B2CA00F937DD;
+			productRefGroup = 03D417BE1C32B2CA00F937DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				03D417BC1C32B2CA00F937DD /* Scribit */,
+				03D417D01C32B2CA00F937DD /* ScribitTests */,
+				03D417DB1C32B2CA00F937DD /* ScribitUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		03D417BB1C32B2CA00F937DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D417C81C32B2CA00F937DD /* Assets.xcassets in Resources */,
+				03D417C61C32B2CA00F937DD /* Document.xib in Resources */,
+				03D417CB1C32B2CA00F937DD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417CF1C32B2CA00F937DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417DA1C32B2CA00F937DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		03D417B91C32B2CA00F937DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D417C31C32B2CA00F937DD /* Document.swift in Sources */,
+				03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */,
+				03D417F21C32C74E00F937DD /* Page.swift in Sources */,
+				03D417EF1C32C22700F937DD /* Canvas.swift in Sources */,
+				03D417F71C32E89400F937DD /* Line.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417CD1C32B2CA00F937DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D417D61C32B2CA00F937DD /* ScribitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D417D81C32B2CA00F937DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D417E11C32B2CA00F937DD /* ScribitUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03D417D31C32B2CA00F937DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D417BC1C32B2CA00F937DD /* Scribit */;
+			targetProxy = 03D417D21C32B2CA00F937DD /* PBXContainerItemProxy */;
+		};
+		03D417DE1C32B2CA00F937DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D417BC1C32B2CA00F937DD /* Scribit */;
+			targetProxy = 03D417DD1C32B2CA00F937DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		03D417C41C32B2CA00F937DD /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D417C51C32B2CA00F937DD /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		03D417C91C32B2CA00F937DD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D417CA1C32B2CA00F937DD /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		03D417E31C32B2CA00F937DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		03D417E41C32B2CA00F937DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		03D417E61C32B2CA00F937DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Scribit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.Scribit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		03D417E71C32B2CA00F937DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Scribit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.Scribit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		03D417E91C32B2CA00F937DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScribitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.ScribitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scribit.app/Contents/MacOS/Scribit";
+			};
+			name = Debug;
+		};
+		03D417EA1C32B2CA00F937DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScribitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.ScribitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Scribit.app/Contents/MacOS/Scribit";
+			};
+			name = Release;
+		};
+		03D417EC1C32B2CA00F937DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScribitUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.ScribitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Scribit;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		03D417ED1C32B2CA00F937DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScribitUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.ScribitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Scribit;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03D417B81C32B2CA00F937DD /* Build configuration list for PBXProject "Scribit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D417E31C32B2CA00F937DD /* Debug */,
+				03D417E41C32B2CA00F937DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D417E51C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "Scribit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D417E61C32B2CA00F937DD /* Debug */,
+				03D417E71C32B2CA00F937DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D417E81C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "ScribitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D417E91C32B2CA00F937DD /* Debug */,
+				03D417EA1C32B2CA00F937DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D417EB1C32B2CA00F937DD /* Build configuration list for PBXNativeTarget "ScribitUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D417EC1C32B2CA00F937DD /* Debug */,
+				03D417ED1C32B2CA00F937DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 03D417B51C32B2CA00F937DD /* Project object */;
+}
