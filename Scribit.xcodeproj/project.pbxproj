@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030BD8F31C348659006DFF12 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E31C348659006DFF12 /* DeviceTracker.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F41C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E61C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F51C348659006DFF12 /* PressureWinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E81C348659006DFF12 /* PressureWinController.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F61C348659006DFF12 /* TabletApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8EB1C348659006DFF12 /* TabletApplication.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8ED1C348659006DFF12 /* TabletEvents.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F01C348659006DFF12 /* WacomPlugIn.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; settings = {ASSET_TAGS = (); }; };
+		030BD8FF1C349090006DFF12 /* WTView.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8FE1C349090006DFF12 /* WTView.m */; settings = {ASSET_TAGS = (); }; };
 		03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C01C32B2CA00F937DD /* AppDelegate.swift */; };
 		03D417C31C32B2CA00F937DD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C21C32B2CA00F937DD /* Document.swift */; };
 		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
@@ -37,6 +45,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		030BD8E21C348659006DFF12 /* DeviceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTracker.h; sourceTree = "<group>"; };
+		030BD8E31C348659006DFF12 /* DeviceTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTracker.m; sourceTree = "<group>"; };
+		030BD8E41C348659006DFF12 /* IOWacomInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOWacomInterface.h; sourceTree = "<group>"; };
+		030BD8E51C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAppleEventDescriptorHelperCategory.h; sourceTree = "<group>"; };
+		030BD8E61C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAppleEventDescriptorHelperCategory.m; sourceTree = "<group>"; };
+		030BD8E71C348659006DFF12 /* PressureWinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PressureWinController.h; sourceTree = "<group>"; };
+		030BD8E81C348659006DFF12 /* PressureWinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PressureWinController.m; sourceTree = "<group>"; };
+		030BD8E91C348659006DFF12 /* TabletAEDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletAEDictionary.h; sourceTree = "<group>"; };
+		030BD8EA1C348659006DFF12 /* TabletApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletApplication.h; sourceTree = "<group>"; };
+		030BD8EB1C348659006DFF12 /* TabletApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabletApplication.m; sourceTree = "<group>"; };
+		030BD8EC1C348659006DFF12 /* TabletEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletEvents.h; sourceTree = "<group>"; };
+		030BD8ED1C348659006DFF12 /* TabletEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabletEvents.m; sourceTree = "<group>"; };
+		030BD8EE1C348659006DFF12 /* Wacom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wacom.h; sourceTree = "<group>"; };
+		030BD8EF1C348659006DFF12 /* WacomPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WacomPlugIn.h; sourceTree = "<group>"; };
+		030BD8F01C348659006DFF12 /* WacomPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WacomPlugIn.m; sourceTree = "<group>"; };
+		030BD8F11C348659006DFF12 /* WacomTabletDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WacomTabletDriver.h; sourceTree = "<group>"; };
+		030BD8F21C348659006DFF12 /* WacomTabletDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WacomTabletDriver.m; sourceTree = "<group>"; };
+		030BD8FD1C349090006DFF12 /* WTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTView.h; sourceTree = "<group>"; };
+		030BD8FE1C349090006DFF12 /* WTView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTView.m; sourceTree = "<group>"; };
+		030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scribit-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		03D417BD1C32B2CA00F937DD /* Scribit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D417C01C32B2CA00F937DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D417C21C32B2CA00F937DD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -80,9 +108,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		030BD8E11C348659006DFF12 /* Wacom */ = {
+			isa = PBXGroup;
+			children = (
+				030BD8FD1C349090006DFF12 /* WTView.h */,
+				030BD8FE1C349090006DFF12 /* WTView.m */,
+				030BD8E21C348659006DFF12 /* DeviceTracker.h */,
+				030BD8E31C348659006DFF12 /* DeviceTracker.m */,
+				030BD8E41C348659006DFF12 /* IOWacomInterface.h */,
+				030BD8E51C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.h */,
+				030BD8E61C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m */,
+				030BD8E71C348659006DFF12 /* PressureWinController.h */,
+				030BD8E81C348659006DFF12 /* PressureWinController.m */,
+				030BD8E91C348659006DFF12 /* TabletAEDictionary.h */,
+				030BD8EA1C348659006DFF12 /* TabletApplication.h */,
+				030BD8EB1C348659006DFF12 /* TabletApplication.m */,
+				030BD8EC1C348659006DFF12 /* TabletEvents.h */,
+				030BD8ED1C348659006DFF12 /* TabletEvents.m */,
+				030BD8EE1C348659006DFF12 /* Wacom.h */,
+				030BD8EF1C348659006DFF12 /* WacomPlugIn.h */,
+				030BD8F01C348659006DFF12 /* WacomPlugIn.m */,
+				030BD8F11C348659006DFF12 /* WacomTabletDriver.h */,
+				030BD8F21C348659006DFF12 /* WacomTabletDriver.m */,
+			);
+			path = Wacom;
+			sourceTree = "<group>";
+		};
 		03D417B41C32B2CA00F937DD = {
 			isa = PBXGroup;
 			children = (
+				030BD8E11C348659006DFF12 /* Wacom */,
 				03D417F01C32C70300F937DD /* Data */,
 				03D417BF1C32B2CA00F937DD /* Scribit */,
 				03D417D41C32B2CA00F937DD /* ScribitTests */,
@@ -104,6 +159,7 @@
 		03D417BF1C32B2CA00F937DD /* Scribit */ = {
 			isa = PBXGroup;
 			children = (
+				030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */,
 				03D417C01C32B2CA00F937DD /* AppDelegate.swift */,
 				03D417C21C32B2CA00F937DD /* Document.swift */,
 				03D417C41C32B2CA00F937DD /* Document.xib */,
@@ -273,11 +329,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */,
+				030BD8F51C348659006DFF12 /* PressureWinController.m in Sources */,
 				03D417C31C32B2CA00F937DD /* Document.swift in Sources */,
+				030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */,
 				03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */,
 				03D417F21C32C74E00F937DD /* Page.swift in Sources */,
+				030BD8F61C348659006DFF12 /* TabletApplication.m in Sources */,
+				030BD8F41C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m in Sources */,
+				030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */,
 				03D417EF1C32C22700F937DD /* Canvas.swift in Sources */,
 				03D417F71C32E89400F937DD /* Line.swift in Sources */,
+				030BD8F31C348659006DFF12 /* DeviceTracker.m in Sources */,
+				030BD8FF1C349090006DFF12 /* WTView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +486,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.Scribit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Scribit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -436,6 +501,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.huluk.Scribit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Scribit-Bridging-Header.h";
 			};
 			name = Release;
 		};

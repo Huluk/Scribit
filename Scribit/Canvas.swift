@@ -8,10 +8,8 @@
 
 import Cocoa
 
-class Canvas: NSView {
+class Canvas: WTView {
     @IBOutlet var document: Document!
-    override var acceptsFirstResponder: Bool { return true }
-    override var flipped: Bool { return true }
     
     var currentPageIndex = 0
     
@@ -29,10 +27,6 @@ class Canvas: NSView {
         for line in currentPage().lines { // TODO use only lines in rect
             drawLine(line)
         }
-    }
-    
-    override func becomeFirstResponder() -> Bool {
-        return true
     }
     
     override func keyDown(event: NSEvent) {

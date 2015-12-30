@@ -27,5 +27,7 @@
             </connections>
             <point key="canvasLocation" x="96" y="296"/>
         </window>
+        <userDefaultsController id="LKu-Ru-zIE"/>
+        <customObject id="h4e-u7-d0k" customClass="PressureWinController"/>
     </objects>
 </document>
