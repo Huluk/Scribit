@@ -32,7 +32,7 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
         // Initialization code here.
         mAdjustOpacity = YES;
         mAdjustSize = NO;
-        mCaptureMouseMoves = [NSApp checkIfNeedToWatchMouseEvents];
+        mCaptureMouseMoves = NO; // TODO [NSApp checkIfNeedToWatchMouseEvents];
         mUpdateStatsDuringDrag = YES;
         knownDevices = [[DeviceTracker alloc] init];
     }

@@ -14,15 +14,13 @@ class Document: NSDocument {
     
     @IBOutlet var canvas: Canvas!
     var pages = [Page]()
-    var defaultPageRect = NSMakeRect(0, 0, 600, 400)
+    var defaultPageRect = NSMakeRect(0, 0, 560, 360)
     var defaultPageBackgroundColor = NSColor.whiteColor()
     
     var fileUnarchiver: NSKeyedUnarchiver?
 
     override init() {
         super.init()
-        canvas = Canvas(frame:defaultPageRect)
-        canvas.document = self
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
         pages[0].addLine()
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
@@ -36,23 +34,9 @@ class Document: NSDocument {
         canvas.currentPageIndex = fileUnarchiver?.decodeIntegerForKey(archiveCurrentPageIndexKey) ?? 0
         fileUnarchiver?.finishDecoding()
         fileUnarchiver = nil
-        makeScrollView()
         self.undoManager?.enableUndoRegistration()
-        canvas.window?.makeFirstResponder(canvas)
+        canvas.enclosingScrollView!.magnification = 1.4
         canvas.needsDisplay = true
-    }
-    
-    func makeScrollView() {
-        let scrollView = NSScrollView(frame: windowForSheet!.contentView!.frame)
-        scrollView.hasHorizontalScroller = true
-        scrollView.hasVerticalScroller = true
-        scrollView.autoresizingMask = [.ViewWidthSizable,.ViewHeightSizable]
-        scrollView.documentView = canvas
-        scrollView.backgroundColor = NSColor.grayColor()
-        scrollView.drawsBackground = true
-        scrollView.allowsMagnification = true
-        windowForSheet!.contentView = scrollView
-        windowForSheet!.makeKeyAndOrderFront(nil)
     }
 
     override class func autosavesInPlace() -> Bool {
