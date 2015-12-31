@@ -14,7 +14,7 @@ class Document: NSDocument {
     
     @IBOutlet var canvas: Canvas!
     var pages = [Page]()
-    var defaultPageRect = NSMakeRect(0, 0, 560, 360)
+    var defaultPageRect = NSMakeRect(0, 0, 100, 200)
     var defaultPageBackgroundColor = NSColor.whiteColor()
     
     var fileUnarchiver: NSKeyedUnarchiver?
@@ -36,7 +36,7 @@ class Document: NSDocument {
         fileUnarchiver = nil
         self.undoManager?.enableUndoRegistration()
         canvas.enclosingScrollView!.magnification = 1.4
-        canvas.needsDisplay = true
+        canvas.reload()
     }
 
     override class func autosavesInPlace() -> Bool {
@@ -52,13 +52,22 @@ class Document: NSDocument {
     override func saveDocumentToPDF(sender: AnyObject?) {
         let pageIndexBackup = canvas.currentPageIndex
         var printInfoDict = [String:AnyObject]()
-        printInfoDict[NSPrintPaperSize] = NSValue(size: defaultPageRect.size)
+        printInfoDict[NSPrintPaperSize] = NSValue(size: canvas.frame.size)
         let savePanel = NSSavePanel()
         savePanel.title = "Export As PDF..."
         savePanel.allowedFileTypes = ["pdf"]
         savePanel.runModal()
         printInfoDict[NSPrintJobSavingURL] = savePanel.URL
         printInfoDict[NSPrintJobDisposition] = NSPrintSaveJob
+        printInfoDict[NSPrintHorizontalPagination] = NSPrintingPaginationMode.FitPagination.rawValue
+        printInfoDict[NSPrintVerticalPagination] = NSPrintingPaginationMode.FitPagination.rawValue
+        printInfoDict[NSPrintTopMargin] = 0.0
+        printInfoDict[NSPrintBottomMargin] = 0.0
+        printInfoDict[NSPrintLeftMargin] = 0.0
+        printInfoDict[NSPrintRightMargin] = 0.0
+        //printInfoDict[NSPrintVerticalPagination] = 1
+        //NSPrintingPaginationMode
+        
         let printOp = NSPrintOperation(view: canvas, printInfo:
             NSPrintInfo(dictionary: printInfoDict))
         printOp.showsPrintPanel = false

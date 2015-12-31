@@ -41,7 +41,7 @@
                                     <subviews>
                                         <customView id="rNr-4h-xkl" customClass="Canvas" customModule="Scribit" customModuleProvider="target">
                                             <rect key="frame" x="150" y="150" width="560" height="360"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <connections>
                                                 <outlet property="document" destination="-2" id="Frb-aw-qZ2"/>
