@@ -43,13 +43,11 @@ All rights reserved.
     IBOutlet id mnuOpacity;
     
     IBOutlet id mnuCaptureMouseMoves;
-    IBOutlet id mnuUpdateStatsDuringDrag;
 }
 
 - (IBAction) opacityMenuAction:(id)sender;
 - (IBAction) lineSizeMenuAction:(id)sender;
 - (IBAction) captureMouseMovesAction:(id)sender;
-- (IBAction) updateStatsDuringDragAction:(id)sender;
 - (IBAction) openColorPanel:(id)sender;
 - (void) changeColor:(id)sender;
 - (void) wtvUpdatedStats:(NSNotification *)theNotification;

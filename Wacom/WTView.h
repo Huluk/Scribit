@@ -18,8 +18,6 @@ All rights reserved.
 @interface WTView : NSView {
     int		mEventType;
     UInt16	mDeviceID;
-    float	mMouseX;
-    float	mMouseY;
     float	mSubX;
     float	mSubY;
     float	mPressure;
@@ -36,7 +34,6 @@ All rights reserved.
     BOOL		mAdjustOpacity;
     BOOL		mAdjustSize;
     BOOL		mCaptureMouseMoves;
-    BOOL		mUpdateStatsDuringDrag;
     
     
     //Private
@@ -48,8 +45,6 @@ All rights reserved.
 
 - (int) mEventType;
 - (UInt16) mDeviceID;
-- (float) mMouseX;
-- (float) mMouseY;
 - (float) mSubX;
 - (float) mSubY;
 - (float) mPressure;
@@ -72,8 +67,6 @@ All rights reserved.
 
 - (BOOL) mCaptureMouseMoves;
 - (void) setCaptureMouseMoves:(BOOL)value;
-- (BOOL) mUpdateStatsDuringDrag;
-- (void) setUpdateStatsDuringDrag:(BOOL)value;
 
 - (void) handleMouseEvent:(NSEvent *)theEvent;
 - (void) handleProximity:(NSNotification *)proxNotice;

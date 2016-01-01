@@ -29,6 +29,7 @@ COPYRIGHT
 
 #define kTabletDriverAETimeout 360000 // in ticks 
 
+const DescType ProximityEvent = eEventProximity;
 
 ///////////////////////////////////////////////////////////////////////////////
 @implementation WacomTabletDriver

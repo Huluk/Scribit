@@ -24,14 +24,8 @@ class Page: NSObject, NSCoding {
         lines = coder.decodeObject() as! [Line]
     }
     
-    func addLine() {
-        var from = NSPoint(x: ((lines.count == 0) ? 5 : bounds.width / 2),
-            y: ((lines.count == 0) ? 5 : bounds.height / 2))
-        var to = NSPoint(x: bounds.width-5, y: lines.count == 0 ? bounds.height-5 : bounds.height/2)
-        lines.append(Line(from: from, to: to, color: NSColor.blackColor()))
-        from = NSPoint(x: random() % Int(bounds.width), y: random() % Int(bounds.height))
-        to = NSPoint(x: random() % Int(bounds.width), y: random() % Int(bounds.height))
-        lines.append(Line(from: from, to: to, color: NSColor.blackColor()))
+    func addLine(line: Line) {
+        lines.append(line)
     }
     
     func encodeWithCoder(coder: NSCoder) {

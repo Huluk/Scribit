@@ -17,6 +17,8 @@ COPYRIGHT
 // All Apple Event indices are 1-based
 #define kInvalidAppleEventIndex 0
 
+extern const DescType ProximityEvent;
+
 //////////////////////////////////////////////////////////////////////////////
 @interface WacomTabletDriver : NSObject
 {

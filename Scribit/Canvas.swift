@@ -14,13 +14,11 @@ class Canvas: WTView {
     @IBOutlet var document: Document!
     
     var currentPageIndex = 0
+    var currentLine: Line?
     
     func drawLine(line: Line) {
         line.color.set()
-        let path = NSBezierPath()
-        path.moveToPoint(line.start)
-        path.lineToPoint(line.end)
-        path.stroke()
+        line.bezierPath().stroke()
     }
     
     override func drawRect(dirtyRect: NSRect) {
@@ -29,6 +27,27 @@ class Canvas: WTView {
         for line in currentPage().lines { // TODO use only lines in rect
             drawLine(line)
         }
+    }
+    
+    override func mouseDown(theEvent: NSEvent) {
+        super.mouseDown(theEvent)
+        currentLine = Line(color: NSColor.blackColor())
+        currentPage().addLine(currentLine!)
+    }
+    
+    override func mouseDragged(theEvent: NSEvent) {
+        let previousMousePosition = mousePosition
+        super.mouseDragged(theEvent)
+        currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
+        needsDisplay = true
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        let previousMousePosition = mousePosition
+        super.mouseUp(theEvent)
+        currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
+        currentLine = nil
+        needsDisplay = true
     }
     
     override func keyDown(event: NSEvent) {

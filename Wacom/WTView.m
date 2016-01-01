@@ -32,8 +32,7 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
         // Initialization code here.
         mAdjustOpacity = YES;
         mAdjustSize = NO;
-        mCaptureMouseMoves = NO; // TODO [NSApp checkIfNeedToWatchMouseEvents];
-        mUpdateStatsDuringDrag = YES;
+        mCaptureMouseMoves = YES; // TODO [NSApp checkIfNeedToWatchMouseEvents];
         knownDevices = [[DeviceTracker alloc] init];
     }
     return self;
@@ -101,10 +100,10 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
    // Updating the text display of the stats can take up a lot of time.
    // This can lead to less smooth curves being drawn. Toggle the
    // Update Stats During Drag menu option to see the difference.  
-   if(mUpdateStatsDuringDrag)
-   {
+   /*if(mUpdateStatsDuringDrag)
+   {*/
       [self drawCurrentDataFromEvent:theEvent];
-      [self handleMouseEvent:theEvent];
+      [self handleMouseEvent:theEvent];/*
    }
    else //Smoother Drawing
    {
@@ -126,10 +125,10 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
             break;
             
             default:
-                     /* Ignore any other kind of event. */
+                     // Ignore any other kind of event.
             break;
          }
-      }
+      //}*/
    }
 }
 
@@ -192,13 +191,13 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
    mSubY	= 0.0;//loc.y;
    
    // pressure: is not valid for MouseMove events
-   if(mEventType != NSMouseMoved)
+   if(mEventType == NSMouseMoved)
    {
-      mPressure	= [theEvent pressure];
+      mPressure	= 0.0;
    }
    else
    {
-      mPressure = 0.0;
+      mPressure = [theEvent pressure];
    }
    
    mTabletRawPressure = [theEvent rawTabletPressure];
@@ -339,10 +338,10 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
          }
          else
          {
-            [[[NSColor blackColor] colorWithAlphaComponent:opacity] set];
+            // TODO [[[NSColor blackColor] colorWithAlphaComponent:opacity] set];
          }
       }
-      
+      /* TODO
       [path setLineWidth:brushSize];
       [path setLineCapStyle:NSRoundLineCapStyle];
       
@@ -356,7 +355,7 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
       }
       
       [path lineToPoint:currentLoc];
-      [path stroke];
+      [path stroke];*/
    [self unlockFocus];
    
    // If we are not updating the stats during a drag, then the
@@ -367,28 +366,6 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
    [[self window] flushWindow];
    
    mLastLoc = currentLoc;
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-
-// - (void)drawRect:(NSRect)rect
-
-// A 'Real' app would probably keep track of the drawing information done
-// during Mouse Drags so that it can properly be re-drawn here. I just
-// clear the drawing region. (Resize the window and all the drawing is
-// erased!)
-
-//
-
-- (void)drawRect:(NSRect)rect
-{
-   // You do not need to call [self lockFocus] here. Callers of this
-   // function are responsible for locking and unlocking the focus for
-   // this required method. See the Apple docs on NSView.
-   [[NSColor whiteColor] set];
-   NSRectFill([self bounds]);
 }
 
 
@@ -438,22 +415,6 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
 - (UInt16) mDeviceID
 {
     return mDeviceID;
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-- (float) mMouseX
-{
-    return mMouseX;
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-- (float) mMouseY
-{
-    return mMouseY;
 }
 
 
@@ -618,22 +579,6 @@ NSString *WTViewUpdatedNotification = @"WTViewStatsUpdatedNotification";
 {
    mCaptureMouseMoves = value;
    [[self window] setAcceptsMouseMovedEvents:mCaptureMouseMoves];
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-- (BOOL) mUpdateStatsDuringDrag
-{
-   return mUpdateStatsDuringDrag;
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-- (void) setUpdateStatsDuringDrag:(BOOL)value
-{
-   mUpdateStatsDuringDrag = value;
 }
 
 @end

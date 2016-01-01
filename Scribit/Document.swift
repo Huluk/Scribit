@@ -22,10 +22,6 @@ class Document: NSDocument {
     override init() {
         super.init()
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
-        pages[0].addLine()
-        pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
-        pages[1].addLine()
-        pages[1].addLine()
     }
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
@@ -59,14 +55,10 @@ class Document: NSDocument {
         savePanel.runModal()
         printInfoDict[NSPrintJobSavingURL] = savePanel.URL
         printInfoDict[NSPrintJobDisposition] = NSPrintSaveJob
-        printInfoDict[NSPrintHorizontalPagination] = NSPrintingPaginationMode.FitPagination.rawValue
-        printInfoDict[NSPrintVerticalPagination] = NSPrintingPaginationMode.FitPagination.rawValue
         printInfoDict[NSPrintTopMargin] = 0.0
         printInfoDict[NSPrintBottomMargin] = 0.0
         printInfoDict[NSPrintLeftMargin] = 0.0
         printInfoDict[NSPrintRightMargin] = 0.0
-        //printInfoDict[NSPrintVerticalPagination] = 1
-        //NSPrintingPaginationMode
         
         let printOp = NSPrintOperation(view: canvas, printInfo:
             NSPrintInfo(dictionary: printInfoDict))

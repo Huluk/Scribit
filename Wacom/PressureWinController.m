@@ -67,15 +67,6 @@ All rights reserved.
    {
       [mnuCaptureMouseMoves setState:NSOffState];
    }
-   
-   if([wtvTabletDraw mUpdateStatsDuringDrag])
-   {
-      [mnuUpdateStatsDuringDrag setState:NSOnState];
-   }
-   else
-   {
-      [mnuUpdateStatsDuringDrag setState:NSOffState];
-   }
 }
 
 
@@ -126,22 +117,6 @@ All rights reserved.
    {
       [sender setState:NSOnState];
       [wtvTabletDraw setCaptureMouseMoves:YES];
-   }
-}
-
-
-
-///////////////////////////////////////////////////////////////////////////
-- (IBAction) updateStatsDuringDragAction:(id)sender{
-   if([sender state] == NSOnState)
-   {
-      [sender setState:NSOffState];
-      [wtvTabletDraw setUpdateStatsDuringDrag:NO];
-   }
-   else
-   {
-      [sender setState:NSOnState];
-      [wtvTabletDraw setUpdateStatsDuringDrag:YES];
    }
 }
 

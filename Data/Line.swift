@@ -10,25 +10,35 @@ import Cocoa
 
 class Line: NSObject, NSCoding {
 
-    var start: NSPoint
-    var end: NSPoint
+    var segments = [LineSegment]()
     var color: NSColor
     
-    init(from: NSPoint, to: NSPoint, color: NSColor) {
-        self.start = from
-        self.end = to
+    init(color: NSColor) {
         self.color = color
     }
     
     required init(coder: NSCoder) {
-        self.start = coder.decodePoint()
-        self.end = coder.decodePoint()
+        let codedSegments = coder.decodeObject() as! [LineSegment.CodingHelper]
+        self.segments = codedSegments.map {$0.get()}
         self.color = coder.decodeObject() as! NSColor
     }
     
     func encodeWithCoder(coder: NSCoder) {
-        coder.encodePoint(start)
-        coder.encodePoint(end)
+        coder.encodeObject(segments.map {LineSegment.CodingHelper(segment: $0)})
         coder.encodeObject(color)
+    }
+    
+    func addSegment(segment: LineSegment) {
+        segments.append(segment)
+    }
+    
+    func bezierPath() -> NSBezierPath {
+        let path = NSBezierPath()
+        path.lineCapStyle = NSLineCapStyle.RoundLineCapStyle
+        for segment in segments {
+            path.moveToPoint(segment.start)
+            path.lineToPoint(segment.end)
+        }
+        return path
     }
 }
