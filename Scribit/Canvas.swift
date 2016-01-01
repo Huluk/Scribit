@@ -32,7 +32,7 @@ class Canvas: WTView {
     override func mouseDown(theEvent: NSEvent) {
         super.mouseDown(theEvent)
         currentLine = Line(color: NSColor.blackColor())
-        currentPage().addLine(currentLine!)
+        document!.addLineOnPage(line: currentLine!, page: currentPage())
     }
     
     override func mouseDragged(theEvent: NSEvent) {
@@ -46,6 +46,7 @@ class Canvas: WTView {
         let previousMousePosition = mousePosition
         super.mouseUp(theEvent)
         currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
+        currentLine!.interpolateCurves()
         currentLine = nil
         needsDisplay = true
     }

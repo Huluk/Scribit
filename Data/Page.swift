@@ -28,6 +28,14 @@ class Page: NSObject, NSCoding {
         lines.append(line)
     }
     
+    func deleteLine(line: Line) {
+        if (lines.last == line) {
+            lines.removeLast()
+        } else {
+            lines.removeAtIndex(lines.indexOf(line)!)
+        }
+    }
+    
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeRect(bounds)
         coder.encodeObject(backgroundColor)

@@ -38,6 +38,20 @@ class Document: NSDocument {
     override class func autosavesInPlace() -> Bool {
         return true
     }
+    
+    func addLineOnPage(line line: Line, page: Page) {
+        page.addLine(line)
+        undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
+        undoManager!.setActionName("Add Line")
+        canvas.needsDisplay = true
+    }
+    
+    func deleteLineOnPage(line line: Line, page: Page) {
+        page.deleteLine(line)
+        undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
+        undoManager!.setActionName("Delete Line")
+        canvas.needsDisplay = true
+    }
 
     override var windowNibName: String? {
         // Returns the nib file name of the document

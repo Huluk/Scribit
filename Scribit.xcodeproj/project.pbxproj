@@ -20,7 +20,7 @@
 		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
 		03D417C81C32B2CA00F937DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C71C32B2CA00F937DD /* Assets.xcassets */; };
 		03D417CB1C32B2CA00F937DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C91C32B2CA00F937DD /* MainMenu.xib */; };
-		03D417D61C32B2CA00F937DD /* ScribitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417D51C32B2CA00F937DD /* ScribitTests.swift */; };
+		03D417D61C32B2CA00F937DD /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417D51C32B2CA00F937DD /* CanvasTests.swift */; };
 		03D417E11C32B2CA00F937DD /* ScribitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417E01C32B2CA00F937DD /* ScribitUITests.swift */; };
 		03D417EF1C32C22700F937DD /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417EE1C32C22700F937DD /* Canvas.swift */; settings = {ASSET_TAGS = (); }; };
 		03D417F21C32C74E00F937DD /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F11C32C74E00F937DD /* Page.swift */; settings = {ASSET_TAGS = (); }; };
@@ -71,7 +71,7 @@
 		03D417CA1C32B2CA00F937DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		03D417CC1C32B2CA00F937DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D417D11C32B2CA00F937DD /* ScribitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScribitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03D417D51C32B2CA00F937DD /* ScribitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribitTests.swift; sourceTree = "<group>"; };
+		03D417D51C32B2CA00F937DD /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
 		03D417D71C32B2CA00F937DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D417DC1C32B2CA00F937DD /* ScribitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScribitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D417E01C32B2CA00F937DD /* ScribitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribitUITests.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 		03D417D41C32B2CA00F937DD /* ScribitTests */ = {
 			isa = PBXGroup;
 			children = (
-				03D417D51C32B2CA00F937DD /* ScribitTests.swift */,
+				03D417D51C32B2CA00F937DD /* CanvasTests.swift */,
 				03D417D71C32B2CA00F937DD /* Info.plist */,
 			);
 			path = ScribitTests;
@@ -345,7 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D417D61C32B2CA00F937DD /* ScribitTests.swift in Sources */,
+				03D417D61C32B2CA00F937DD /* CanvasTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
