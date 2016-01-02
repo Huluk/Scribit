@@ -9,19 +9,24 @@
 import Cocoa
 
 class Document: NSDocument {
-    let archivePagesKey = "pagesKey"
-    let archiveCurrentPageIndexKey = "currentPageIndexKey"
+    let archivePagesKey = "documentPagesKey"
+    let archiveBrushesKey = "documentBrushesKey"
+    let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
+    
+    let defaultPageRect = NSMakeRect(0, 0, 100, 200)
+    let defaultPen = Brush(name: "Default Pen", color: NSColor.blackColor(), size: 1.0)
+    let defaultPageBackgroundColor = NSColor.whiteColor()
     
     @IBOutlet var canvas: Canvas!
     var pages = [Page]()
-    var defaultPageRect = NSMakeRect(0, 0, 100, 200)
-    var defaultPageBackgroundColor = NSColor.whiteColor()
+    var brushes = [Brush]()
     
     var fileUnarchiver: NSKeyedUnarchiver?
 
     override init() {
         super.init()
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
+        brushes.append(defaultPen)
     }
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
@@ -43,14 +48,14 @@ class Document: NSDocument {
         page.addLine(line)
         undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
         undoManager!.setActionName("Add Line")
-        canvas.needsDisplay = true
+        canvas.setNeedsDisplayInRect(line.bounds)
     }
     
     func deleteLineOnPage(line line: Line, page: Page) {
         page.deleteLine(line)
         undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
         undoManager!.setActionName("Delete Line")
-        canvas.needsDisplay = true
+        canvas.setNeedsDisplayInRect(line.bounds)
     }
 
     override var windowNibName: String? {
@@ -117,6 +122,7 @@ class Document: NSDocument {
         let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
         archiver.encodeInteger(canvas.currentPageIndex, forKey: archiveCurrentPageIndexKey)
         archiver.encodeObject(pages, forKey: archivePagesKey)
+        archiver.encodeObject(brushes, forKey: archiveBrushesKey)
         archiver.finishEncoding()
         return data
     }
@@ -126,6 +132,7 @@ class Document: NSDocument {
         self.undoManager?.disableUndoRegistration()
         fileUnarchiver = NSKeyedUnarchiver(forReadingWithData: data)
         pages = fileUnarchiver?.decodeObjectForKey(archivePagesKey) as! [Page]
+        brushes = fileUnarchiver?.decodeObjectForKey(archiveBrushesKey) as! [Brush]
         self.undoManager?.enableUndoRegistration()
     }
 }

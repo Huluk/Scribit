@@ -15,6 +15,7 @@
 		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; settings = {ASSET_TAGS = (); }; };
 		0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6A91C36A7B10016263D /* LineSegment.swift */; settings = {ASSET_TAGS = (); }; };
 		0364F6AD1C36C96B0016263D /* WTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6AC1C36C96B0016263D /* WTView.swift */; settings = {ASSET_TAGS = (); }; };
+		0364F6B11C3878430016263D /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6B01C3878430016263D /* Brush.swift */; settings = {ASSET_TAGS = (); }; };
 		03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C01C32B2CA00F937DD /* AppDelegate.swift */; };
 		03D417C31C32B2CA00F937DD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C21C32B2CA00F937DD /* Document.swift */; };
 		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
@@ -63,6 +64,7 @@
 		030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scribit-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0364F6A91C36A7B10016263D /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineSegment.swift; path = Data/LineSegment.swift; sourceTree = "<group>"; };
 		0364F6AC1C36C96B0016263D /* WTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTView.swift; sourceTree = "<group>"; };
+		0364F6B01C3878430016263D /* Brush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Brush.swift; path = Data/Brush.swift; sourceTree = "<group>"; };
 		03D417BD1C32B2CA00F937DD /* Scribit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D417C01C32B2CA00F937DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D417C21C32B2CA00F937DD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				03D417F11C32C74E00F937DD /* Page.swift */,
 				03D417F61C32E89400F937DD /* Line.swift */,
 				0364F6A91C36A7B10016263D /* LineSegment.swift */,
+				0364F6B01C3878430016263D /* Brush.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			files = (
 				030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */,
 				03D417C31C32B2CA00F937DD /* Document.swift in Sources */,
+				0364F6B11C3878430016263D /* Brush.swift in Sources */,
 				030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */,
 				03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */,
 				03D417F21C32C74E00F937DD /* Page.swift in Sources */,

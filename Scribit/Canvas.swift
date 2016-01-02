@@ -14,24 +14,27 @@ class Canvas: WTView {
     @IBOutlet var document: Document!
     
     var currentPageIndex = 0
+    var currentBrushIndex = 0
     var currentLine: Line?
     
     func drawLine(line: Line) {
-        line.color.set()
+        line.brush.color.set()
         line.bezierPath().stroke()
     }
     
     override func drawRect(dirtyRect: NSRect) {
         currentPage().backgroundColor.set()
         NSRectFill(dirtyRect)
-        for line in currentPage().lines { // TODO use only lines in rect
-            drawLine(line)
+        for line in currentPage().lines {
+            if NSIntersectsRect(line.bounds, dirtyRect) {
+                drawLine(line)
+            }
         }
     }
     
     override func mouseDown(theEvent: NSEvent) {
         super.mouseDown(theEvent)
-        currentLine = Line(color: NSColor.blackColor())
+        currentLine = Line(brush: currentBrush())
         document!.addLineOnPage(line: currentLine!, page: currentPage())
     }
     
@@ -40,6 +43,7 @@ class Canvas: WTView {
         super.mouseDragged(theEvent)
         currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
         needsDisplay = true
+        setNeedsDisplayInRect(currentLine!.bounds)
     }
     
     override func mouseUp(theEvent: NSEvent) {
@@ -47,8 +51,8 @@ class Canvas: WTView {
         super.mouseUp(theEvent)
         currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
         currentLine!.interpolateCurves()
+        setNeedsDisplayInRect(currentLine!.bounds)
         currentLine = nil
-        needsDisplay = true
     }
     
     override func keyDown(event: NSEvent) {
@@ -61,7 +65,7 @@ class Canvas: WTView {
     
     func reload() {
         rescale(currentPage().size())
-        needsDisplay = true
+        setNeedsDisplayInRect(bounds)
     }
     
     func rescale(targetSize: NSSize) {
@@ -76,6 +80,10 @@ class Canvas: WTView {
     
     func currentPage() -> Page {
         return document.pages[currentPageIndex]
+    }
+    
+    func currentBrush() -> Brush {
+        return document.brushes[currentBrushIndex]
     }
     
     func nextPage() {
