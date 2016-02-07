@@ -55,14 +55,6 @@ class Canvas: WTView {
         currentLine = nil
     }
     
-    override func keyDown(event: NSEvent) {
-        switch event.keyCode {
-        case 123: previousPage(self) // left arrow
-        case 124: nextPage(self) // right arrow
-        default: break
-        }
-    }
-    
     func reload() {
         rescale(currentPage().size())
         setNeedsDisplayInRect(bounds)
@@ -86,17 +78,18 @@ class Canvas: WTView {
         return document.brushes[currentBrushIndex]
     }
     
-    @IBAction func nextPage(sender: AnyObject) {
-        if currentPageIndex < document.pages.count - 1 {
-            currentPageIndex++
+    func goToPage(pageIndex: Int) {
+        if pageIndex >= 0 && pageIndex < document.pages.count {
+            currentPageIndex = pageIndex
             reload()
         }
     }
     
-    @IBAction func previousPage(sender: AnyObject) {
-        if currentPageIndex > 0 {
-            currentPageIndex--
-            reload()
+    func setNeedsDisplayInRect(invalidRect: NSRect, onPage pageIndex: Int) {
+        if pageIndex == currentPageIndex {
+            setNeedsDisplayInRect(invalidRect)
+        } else {
+            goToPage(pageIndex)
         }
     }
     

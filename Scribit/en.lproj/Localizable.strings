@@ -8,5 +8,7 @@
 
 "Add Line" = "Add Line";
 "Delete Line" = "Delete Line";
+"Add Page" = "Add Page";
+"Delete Page" = "Delete Page";
 "Default Pen" = "Default Pen";
 "page x of y" = "(page %1$@ of %2$@)";

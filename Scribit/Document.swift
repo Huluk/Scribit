@@ -12,11 +12,12 @@ class Document: NSDocument {
     let archivePagesKey = "documentPagesKey"
     let archiveBrushesKey = "documentBrushesKey"
     let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
+    let archiveMagnificationKey = "scrollViewMagnificationKey"
     
     let defaultPageRect = NSMakeRect(0, 0, 100, 200)
     let defaultPageBackgroundColor = NSColor.whiteColor()
     
-    @IBOutlet var canvas: Canvas!
+    weak var canvas: Canvas!
     var pages = [Page]()
     var brushes = [Brush.defaultPen]
     
@@ -29,13 +30,20 @@ class Document: NSDocument {
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
-        self.undoManager?.disableUndoRegistration()
-        canvas.currentPageIndex = fileUnarchiver?.decodeIntegerForKey(archiveCurrentPageIndexKey) ?? 0
-        fileUnarchiver?.finishDecoding()
-        fileUnarchiver = nil
-        self.undoManager?.enableUndoRegistration()
-        canvas.enclosingScrollView!.magnification = 1.4
-        canvas.reload()
+        if let canvasWindowController = aController as? CanvasWindowController {
+            canvas = canvasWindowController.canvas
+            canvas.document = self
+            if let unarchiver = fileUnarchiver {
+                fileUnarchiver = nil
+                self.undoManager?.disableUndoRegistration()
+                canvas.currentPageIndex = unarchiver.decodeIntegerForKey(archiveCurrentPageIndexKey)
+                unarchiver.finishDecoding()
+                self.undoManager?.enableUndoRegistration()
+            } else {
+                canvas.enclosingScrollView!.magnification = 1.4 // TODO
+            }
+            canvas.reload()
+        }
     }
 
     override class func autosavesInPlace() -> Bool {
@@ -46,20 +54,51 @@ class Document: NSDocument {
         page.addLine(line)
         undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
         undoManager!.setActionName(NSLocalizedString("Add Line", comment: "undo add line"))
-        canvas.setNeedsDisplayInRect(line.bounds)
+        canvas.setNeedsDisplayInRect(line.bounds, onPage: pageIndex(page)!)
     }
     
     func deleteLineOnPage(line line: Line, page: Page) {
         page.deleteLine(line)
         undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
         undoManager!.setActionName(NSLocalizedString("Delete Line", comment: "undo delete line"))
-        canvas.setNeedsDisplayInRect(line.bounds)
+        canvas.setNeedsDisplayInRect(line.bounds, onPage: pageIndex(page)!)
+    }
+    
+    func addPage(index index: Int) {
+        let newPage = Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor)
+        addPage(newPage, index: index)
+    }
+    
+    func addPage(page: Page, index: Int) {
+        pages.insert(page, atIndex: index)
+        undoManager!.prepareWithInvocationTarget(self).deletePage(index: index)
+        undoManager!.setActionName(NSLocalizedString("Add Page", comment: "undo add page"))
+        canvas.goToPage(index)
+        updateWindowTitle()
+    }
+    
+    func deletePage(index index: Int) {
+        let page = pages.removeAtIndex(index)
+        undoManager!.prepareWithInvocationTarget(self).addPage(page, index: index)
+        undoManager!.setActionName(NSLocalizedString("Delete Page", comment: "undo delete page"))
+        if canvas.currentPageIndex >= pagesCount() {
+            canvas.goToPage(pagesCount()-1)
+        } else {
+            canvas.reload()
+        }
+        updateWindowTitle()
     }
 
-    override var windowNibName: String? {
-        // Returns the nib file name of the document
-        // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this property and override -makeWindowControllers instead.
-        return "Document"
+    override func makeWindowControllers() {
+        addWindowController(CanvasWindowController(windowNibName: "Document"))
+    }
+    
+    func updateWindowTitle() {
+        for windowController in windowControllers {
+            if let canvasWindowController = windowController as? CanvasWindowController {
+                canvasWindowController.synchronizeWindowTitleWithDocumentName()
+            }
+        }
     }
     
     override func saveDocumentToPDF(sender: AnyObject?) {
@@ -82,6 +121,10 @@ class Document: NSDocument {
         printOp.showsPrintPanel = false
         printOp.runOperation()
         canvas.currentPageIndex = pageIndexBackup
+    }
+    
+    func pageIndex(page: Page) -> Int? {
+        return pages.indexOf(page)
     }
     
     /*// print and pdf export
@@ -132,6 +175,10 @@ class Document: NSDocument {
         pages = fileUnarchiver?.decodeObjectForKey(archivePagesKey) as! [Page]
         brushes = fileUnarchiver?.decodeObjectForKey(archiveBrushesKey) as! [Brush]
         self.undoManager?.enableUndoRegistration()
+    }
+    
+    func pagesCount() -> Int {
+        return pages.count
     }
 }
 

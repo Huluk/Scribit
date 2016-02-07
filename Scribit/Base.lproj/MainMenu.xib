@@ -177,10 +177,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
                         <items>
-                            <menuItem title="Go to Page…" keyEquivalent="g" id="AzD-i9-jxf">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Cc1-cv-MsW"/>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
@@ -191,6 +187,32 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="pQI-g3-MTW"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Page" id="bqp-Ee-OK0">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Page" id="hKu-Tj-eOX">
+                        <items>
+                            <menuItem title="Go to Page…" keyEquivalent="g" id="AzD-i9-jxf">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Cc1-cv-MsW"/>
+                            <menuItem title="New Page" keyEquivalent="N" id="5yO-JR-LJB">
+                                <connections>
+                                    <action selector="appendPage:" target="-1" id="sgH-Aj-tDy"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Insert Page" keyEquivalent="i" id="2iN-Cc-pdt">
+                                <connections>
+                                    <action selector="insertPage:" target="-1" id="N8B-7P-OUU"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete Current Page" keyEquivalent="d" id="XHM-xX-xFq">
+                                <connections>
+                                    <action selector="deletePage:" target="-1" id="Ihy-Gd-nxd"/>
                                 </connections>
                             </menuItem>
                         </items>
