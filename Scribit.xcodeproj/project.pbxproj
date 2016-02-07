@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030BD8F31C348659006DFF12 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E31C348659006DFF12 /* DeviceTracker.m */; settings = {ASSET_TAGS = (); }; };
-		030BD8F41C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E61C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m */; settings = {ASSET_TAGS = (); }; };
-		030BD8F61C348659006DFF12 /* TabletApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8EB1C348659006DFF12 /* TabletApplication.m */; settings = {ASSET_TAGS = (); }; };
-		030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8ED1C348659006DFF12 /* TabletEvents.m */; settings = {ASSET_TAGS = (); }; };
-		030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F01C348659006DFF12 /* WacomPlugIn.m */; settings = {ASSET_TAGS = (); }; };
-		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; settings = {ASSET_TAGS = (); }; };
-		0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6A91C36A7B10016263D /* LineSegment.swift */; settings = {ASSET_TAGS = (); }; };
-		0364F6AD1C36C96B0016263D /* WTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6AC1C36C96B0016263D /* WTView.swift */; settings = {ASSET_TAGS = (); }; };
-		0364F6B11C3878430016263D /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6B01C3878430016263D /* Brush.swift */; settings = {ASSET_TAGS = (); }; };
+		030BD8F31C348659006DFF12 /* DeviceTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E31C348659006DFF12 /* DeviceTracker.m */; };
+		030BD8F41C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8E61C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m */; };
+		030BD8F61C348659006DFF12 /* TabletApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8EB1C348659006DFF12 /* TabletApplication.m */; };
+		030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8ED1C348659006DFF12 /* TabletEvents.m */; };
+		030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F01C348659006DFF12 /* WacomPlugIn.m */; };
+		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; };
+		0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6A91C36A7B10016263D /* LineSegment.swift */; };
+		0364F6AD1C36C96B0016263D /* WTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6AC1C36C96B0016263D /* WTView.swift */; };
+		0364F6B11C3878430016263D /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6B01C3878430016263D /* Brush.swift */; };
+		037DAC6D1C66BFF5001AA104 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 037DAC6F1C66BFF5001AA104 /* Localizable.strings */; };
+		037DAC761C67588D001AA104 /* DocumentWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037DAC751C67588D001AA104 /* DocumentWindow.swift */; };
 		03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C01C32B2CA00F937DD /* AppDelegate.swift */; };
 		03D417C31C32B2CA00F937DD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C21C32B2CA00F937DD /* Document.swift */; };
 		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
@@ -23,9 +25,9 @@
 		03D417CB1C32B2CA00F937DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C91C32B2CA00F937DD /* MainMenu.xib */; };
 		03D417D61C32B2CA00F937DD /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417D51C32B2CA00F937DD /* CanvasTests.swift */; };
 		03D417E11C32B2CA00F937DD /* ScribitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417E01C32B2CA00F937DD /* ScribitUITests.swift */; };
-		03D417EF1C32C22700F937DD /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417EE1C32C22700F937DD /* Canvas.swift */; settings = {ASSET_TAGS = (); }; };
-		03D417F21C32C74E00F937DD /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F11C32C74E00F937DD /* Page.swift */; settings = {ASSET_TAGS = (); }; };
-		03D417F71C32E89400F937DD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F61C32E89400F937DD /* Line.swift */; settings = {ASSET_TAGS = (); }; };
+		03D417EF1C32C22700F937DD /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417EE1C32C22700F937DD /* Canvas.swift */; };
+		03D417F21C32C74E00F937DD /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F11C32C74E00F937DD /* Page.swift */; };
+		03D417F71C32E89400F937DD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417F61C32E89400F937DD /* Line.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		0364F6A91C36A7B10016263D /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineSegment.swift; path = Data/LineSegment.swift; sourceTree = "<group>"; };
 		0364F6AC1C36C96B0016263D /* WTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTView.swift; sourceTree = "<group>"; };
 		0364F6B01C3878430016263D /* Brush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Brush.swift; path = Data/Brush.swift; sourceTree = "<group>"; };
+		037DAC6E1C66BFF5001AA104 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		037DAC751C67588D001AA104 /* DocumentWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentWindow.swift; sourceTree = "<group>"; };
 		03D417BD1C32B2CA00F937DD /* Scribit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D417C01C32B2CA00F937DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D417C21C32B2CA00F937DD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 		03D417BF1C32B2CA00F937DD /* Scribit */ = {
 			isa = PBXGroup;
 			children = (
+				037DAC6F1C66BFF5001AA104 /* Localizable.strings */,
 				030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */,
 				03D417C01C32B2CA00F937DD /* AppDelegate.swift */,
 				03D417C21C32B2CA00F937DD /* Document.swift */,
@@ -164,6 +169,7 @@
 				03D417CC1C32B2CA00F937DD /* Info.plist */,
 				03D417EE1C32C22700F937DD /* Canvas.swift */,
 				0364F6AC1C36C96B0016263D /* WTView.swift */,
+				037DAC751C67588D001AA104 /* DocumentWindow.swift */,
 			);
 			path = Scribit;
 			sourceTree = "<group>";
@@ -302,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D417C81C32B2CA00F937DD /* Assets.xcassets in Resources */,
+				037DAC6D1C66BFF5001AA104 /* Localizable.strings in Resources */,
 				03D417C61C32B2CA00F937DD /* Document.xib in Resources */,
 				03D417CB1C32B2CA00F937DD /* MainMenu.xib in Resources */,
 			);
@@ -339,6 +346,7 @@
 				0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */,
 				030BD8F41C348659006DFF12 /* NSAppleEventDescriptorHelperCategory.m in Sources */,
 				030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */,
+				037DAC761C67588D001AA104 /* DocumentWindow.swift in Sources */,
 				03D417EF1C32C22700F937DD /* Canvas.swift in Sources */,
 				03D417F71C32E89400F937DD /* Line.swift in Sources */,
 				030BD8F31C348659006DFF12 /* DeviceTracker.m in Sources */,
@@ -377,6 +385,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		037DAC6F1C66BFF5001AA104 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				037DAC6E1C66BFF5001AA104 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		03D417C41C32B2CA00F937DD /* Document.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

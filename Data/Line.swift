@@ -33,8 +33,11 @@ class Line: NSObject, NSCoding {
         segments.append(segment)
         bounds = NSUnionRect(bounds, segment.bounds)
         let n = segments.count
-        var newestSegments = Array(segments[max(0,n-5)..<n])
-        newestSegments[0] = LineSegment(lineSegment: newestSegments[0])
+        let start_n = n - 5
+        var newestSegments = Array(segments[max(0,start_n)..<n])
+        if (start_n >= 0) {
+            newestSegments[0] = LineSegment(lineSegment: newestSegments[0])
+        }
         interpolateCurves(newestSegments)
     }
     

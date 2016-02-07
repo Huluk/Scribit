@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Scribit
+
+  Created by Lars Hansen on 2016-02-06.
+  Copyright © 2016 Lars Hansen. All rights reserved.
+*/
+
+"Add Line" = "Add Line";
+"Delete Line" = "Delete Line";
+"Default Pen" = "Default Pen";
+"page x of y" = "(page %1$@ of %2$@)";

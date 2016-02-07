@@ -14,19 +14,17 @@ class Document: NSDocument {
     let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
     
     let defaultPageRect = NSMakeRect(0, 0, 100, 200)
-    let defaultPen = Brush(name: "Default Pen", color: NSColor.blackColor(), size: 1.0)
     let defaultPageBackgroundColor = NSColor.whiteColor()
     
     @IBOutlet var canvas: Canvas!
     var pages = [Page]()
-    var brushes = [Brush]()
+    var brushes = [Brush.defaultPen]
     
     var fileUnarchiver: NSKeyedUnarchiver?
 
     override init() {
         super.init()
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
-        brushes.append(defaultPen)
     }
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
@@ -47,14 +45,14 @@ class Document: NSDocument {
     func addLineOnPage(line line: Line, page: Page) {
         page.addLine(line)
         undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
-        undoManager!.setActionName("Add Line")
+        undoManager!.setActionName(NSLocalizedString("Add Line", comment: "undo add line"))
         canvas.setNeedsDisplayInRect(line.bounds)
     }
     
     func deleteLineOnPage(line line: Line, page: Page) {
         page.deleteLine(line)
         undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
-        undoManager!.setActionName("Delete Line")
+        undoManager!.setActionName(NSLocalizedString("Delete Line", comment: "undo delete line"))
         canvas.setNeedsDisplayInRect(line.bounds)
     }
 

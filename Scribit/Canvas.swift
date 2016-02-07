@@ -57,8 +57,8 @@ class Canvas: WTView {
     
     override func keyDown(event: NSEvent) {
         switch event.keyCode {
-        case 123: previousPage() // left arrow
-        case 124: nextPage() // right arrow
+        case 123: previousPage(self) // left arrow
+        case 124: nextPage(self) // right arrow
         default: break
         }
     }
@@ -86,14 +86,14 @@ class Canvas: WTView {
         return document.brushes[currentBrushIndex]
     }
     
-    func nextPage() {
+    @IBAction func nextPage(sender: AnyObject) {
         if currentPageIndex < document.pages.count - 1 {
             currentPageIndex++
             reload()
         }
     }
     
-    func previousPage() {
+    @IBAction func previousPage(sender: AnyObject) {
         if currentPageIndex > 0 {
             currentPageIndex--
             reload()

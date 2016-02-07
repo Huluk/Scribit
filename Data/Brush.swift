@@ -17,6 +17,10 @@ class Brush: NSObject,NSCoding {
     var color: NSColor
     var size: CGFloat
     
+    static let defaultPen = Brush(
+        name: NSLocalizedString("Default Pen", comment: "name of default pen"),
+        color: NSColor.blackColor(), size: 1)
+    
     init(name: String, color: NSColor, size: CGFloat) {
         self.name = name
         self.color = color
