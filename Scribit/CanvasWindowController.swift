@@ -10,6 +10,8 @@ import Cocoa
 
 class CanvasWindowController: NSWindowController {
     @IBOutlet var canvas: Canvas!
+    @IBOutlet var pageSelectionPanel: NSPanel!
+    @IBOutlet var pageSelection: NSTextField!
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -38,9 +40,25 @@ class CanvasWindowController: NSWindowController {
         default: break
         }
     }
+
+    @IBAction func showPageSelectionPanel(sender: AnyObject) {
+        window!.beginSheet(pageSelectionPanel, completionHandler: nil)
+        if pageSelection.stringValue == "" {
+            pageSelection.takeIntegerValueFrom(1)
+        }
+    }
+    
+    @IBAction func closePageSelectionPanel(sender: AnyObject) {
+        window!.endSheet(pageSelectionPanel)
+        pageSelectionPanel.orderOut(sender)
+    }
     
     @IBAction func goToPage(sender: AnyObject) {
-        // TODO
+        let pageNumber = pageSelection.integerValue
+        closePageSelectionPanel(sender)
+        if !canvas.goToPage(pageNumber-1) {
+            NSBeep()
+        }
     }
     
     @IBAction func appendPage(sender: AnyObject) {

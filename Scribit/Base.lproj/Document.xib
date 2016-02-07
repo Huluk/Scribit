@@ -8,6 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CanvasWindowController" customModule="Scribit" customModuleProvider="target">
             <connections>
                 <outlet property="canvas" destination="rNr-4h-xkl" id="dDZ-kv-aTS"/>
+                <outlet property="pageSelection" destination="TUk-PG-GDA" id="h9g-NO-73c"/>
+                <outlet property="pageSelectionPanel" destination="agz-eG-6aY" id="TaN-ap-yp2"/>
                 <outlet property="window" destination="UYF-26-CYc" id="tpQ-tt-seW"/>
             </connections>
         </customObject>
@@ -59,5 +61,69 @@
             </connections>
             <point key="canvasLocation" x="159" y="198"/>
         </window>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="agz-eG-6aY" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES" documentModal="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="120" y="64" width="165" height="91"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="FZt-p2-ays">
+                <rect key="frame" x="0.0" y="0.0" width="165" height="91"/>
+                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" id="C4e-rD-UZX">
+                        <rect key="frame" x="14" y="13" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NMY-7s-Aba">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closePageSelectionPanel:" target="-2" id="RMV-7X-Qoa"/>
+                        </connections>
+                    </button>
+                    <textField focusRingType="exterior" verticalHuggingPriority="750" id="TUk-PG-GDA">
+                        <rect key="frame" x="61" y="49" width="84" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" focusRingType="exterior" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="9tb-2P-qcw">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="42" id="Sc8-G3-TXC"/>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KeW-kT-cWd">
+                        <rect key="frame" x="18" y="54" width="49" height="17"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Page:" id="DUc-GD-OJb">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" id="FEk-hT-9QK">
+                        <rect key="frame" x="92" y="13" width="59" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hG3-Y7-PxA">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="goToPage:" target="-2" id="RIQ-gf-G9D"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="initialFirstResponder" destination="TUk-PG-GDA" id="rnc-Pt-Qyn"/>
+            </connections>
+            <point key="canvasLocation" x="-197.5" y="657.5"/>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="sag-qN-zql"/>
     </objects>
 </document>

@@ -198,8 +198,15 @@
                         <items>
                             <menuItem title="Go to Page…" keyEquivalent="g" id="AzD-i9-jxf">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="showPageSelectionPanel:" target="-1" id="FQd-Zu-kvY"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Cc1-cv-MsW"/>
+                            <menuItem title="Page Format…" keyEquivalent="f" id="BuL-WD-PFb">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="UJm-3b-7fC"/>
                             <menuItem title="New Page" keyEquivalent="N" id="5yO-JR-LJB">
                                 <connections>
                                     <action selector="appendPage:" target="-1" id="sgH-Aj-tDy"/>
@@ -214,6 +221,30 @@
                                 <connections>
                                     <action selector="deletePage:" target="-1" id="Ihy-Gd-nxd"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="mGf-19-dgg"/>
+                            <menuItem title="Rotate Page" id="kdq-r7-StV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Rotate Page" id="QS1-kh-OQv">
+                                    <items>
+                                        <menuItem title="180°" id="YYQ-Gv-RTB">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="90° Right" id="r2S-z7-1us">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="90° Left" id="flp-5N-1E9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qQ6-JG-Vnk"/>
+                                        <menuItem title="Flip Horizontal" id="RUJ-SV-HrY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Flip Vertical" id="d3G-hZ-tyj">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                         </items>
                     </menu>

@@ -9,6 +9,9 @@
 import Cocoa
 
 class Line: NSObject, NSCoding {
+    // number of line segments which are used to calculate the current bezier path while drawing
+    let concurrentDrawingContext = 3
+    
     var segments = [LineSegment]()
     var brush: Brush
     var bounds = NSRect()
@@ -33,9 +36,10 @@ class Line: NSObject, NSCoding {
         segments.append(segment)
         bounds = NSUnionRect(bounds, segment.bounds)
         let n = segments.count
-        let start_n = n - 5
+        let start_n = n - concurrentDrawingContext
         var newestSegments = Array(segments[max(0,start_n)..<n])
-        if (start_n >= 0) {
+        if (start_n > 0) {
+            // do not modify the initial element if it is not start of line
             newestSegments[0] = LineSegment(lineSegment: newestSegments[0])
         }
         interpolateCurves(newestSegments)
@@ -51,18 +55,6 @@ class Line: NSObject, NSCoding {
                 controlPoint1: segment.firstControlPoint, controlPoint2: segment.secondControlPoint)
         }
         return path
-    }
-    
-    private func interpolateSegment(previous prev: NSPoint, inout segment: LineSegment, next: NSPoint)
-    {
-        segment.firstControlPoint = guessControl(prev, segment.start)
-        segment.secondControlPoint = guessControl(next, segment.end)
-    }
-    
-    private func guessControl(farPoint: NSPoint, _ closePoint: NSPoint) -> NSPoint {
-        let dx = closePoint.x - farPoint.x
-        let dy = closePoint.y - farPoint.y
-        return NSMakePoint(closePoint.x + 0.25*dx, closePoint.y + 0.25*dy)
     }
     
     func interpolateCurves() {

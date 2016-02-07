@@ -57,6 +57,7 @@ class Canvas: WTView {
     
     func reload() {
         rescale(currentPage().size())
+        document.updateWindowTitle()
         setNeedsDisplayInRect(bounds)
     }
     
@@ -78,10 +79,13 @@ class Canvas: WTView {
         return document.brushes[currentBrushIndex]
     }
     
-    func goToPage(pageIndex: Int) {
+    func goToPage(pageIndex: Int) -> Bool {
         if pageIndex >= 0 && pageIndex < document.pages.count {
             currentPageIndex = pageIndex
             reload()
+            return true
+        } else {
+            return false
         }
     }
     

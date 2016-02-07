@@ -74,7 +74,6 @@ class Document: NSDocument {
         undoManager!.prepareWithInvocationTarget(self).deletePage(index: index)
         undoManager!.setActionName(NSLocalizedString("Add Page", comment: "undo add page"))
         canvas.goToPage(index)
-        updateWindowTitle()
     }
     
     func deletePage(index index: Int) {
@@ -86,7 +85,6 @@ class Document: NSDocument {
         } else {
             canvas.reload()
         }
-        updateWindowTitle()
     }
 
     override func makeWindowControllers() {
