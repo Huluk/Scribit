@@ -9,32 +9,20 @@
 import Cocoa
 
 class Document: NSDocument {
+    let archiveDefaultPageRectKey = "defaultPageRectKey"
     let archivePagesKey = "documentPagesKey"
     let archiveBrushesKey = "documentBrushesKey"
     let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
     let archiveMagnificationKey = "scrollViewMagnificationKey"
     
-    var defaultPageRect : NSRect
+    var defaultPageRect = NSRect()
     let defaultPageBackgroundColor = NSColor.whiteColor()
     
     weak var canvas: Canvas!
-    var pages = [Page]()
+    var pages = [Page(pageRect: NSRect(), backgroundColor: NSColor.whiteColor())]
     var brushes = [Brush.defaultPen]
     
     var fileUnarchiver: NSKeyedUnarchiver?
-
-    override init() {
-        defaultPageRect = NSRect(origin: NSPoint(), size: NSPrintInfo.sharedPrintInfo().paperSize)
-        super.init()
-        pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
-        
-        /* TODO use for size adjustment / new documents
-        let appDelegate = NSApp.delegate as! AppDelegate
-        let formats = appDelegate.defaultPageFormats.pageFormats as! [String]
-        for format : String in formats {
-            NSLog("\(NSPrintInfo.sharedPrintInfo().printer.pageSizeForPaper(format))")
-        }*/
-    }
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
@@ -49,9 +37,16 @@ class Document: NSDocument {
                 self.undoManager?.enableUndoRegistration()
             } else {
                 canvas.enclosingScrollView!.magnification = 1.4 // TODO
+                canvasWindowController.showPageFormatPicker()
             }
-            canvas.reload()
         }
+        canvas.reload()
+    }
+    
+    func setInitialPageFormat(size size : NSSize) {
+        defaultPageRect = NSRect(origin: NSPoint(), size: size)
+        pages = [Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor)]
+        canvas.reload()
     }
 
     override class func autosavesInPlace() -> Bool {
@@ -168,6 +163,7 @@ class Document: NSDocument {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
         archiver.encodeInteger(canvas.currentPageIndex, forKey: archiveCurrentPageIndexKey)
+        archiver.encodeRect(defaultPageRect, forKey: archiveDefaultPageRectKey)
         archiver.encodeObject(pages, forKey: archivePagesKey)
         archiver.encodeObject(brushes, forKey: archiveBrushesKey)
         archiver.finishEncoding()
@@ -178,6 +174,7 @@ class Document: NSDocument {
     override func readFromData(data: NSData, ofType typeName: String) throws {
         self.undoManager?.disableUndoRegistration()
         fileUnarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        defaultPageRect = (fileUnarchiver?.decodeRectForKey(archiveDefaultPageRectKey))!
         pages = fileUnarchiver?.decodeObjectForKey(archivePagesKey) as! [Page]
         brushes = fileUnarchiver?.decodeObjectForKey(archiveBrushesKey) as! [Brush]
         self.undoManager?.enableUndoRegistration()

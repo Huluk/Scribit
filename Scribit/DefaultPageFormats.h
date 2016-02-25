@@ -10,7 +10,9 @@
 
 @interface DefaultPageFormats : NSObject
 
-@property NSArray * pageFormats;
-@property NSDictionary * displayNames;
+@property NSArray *gddNames;
+@property NSArray *identifiers;
+@property NSArray *displayNames;
+@property NSArray *sizes;
 
 @end

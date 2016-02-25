@@ -9,9 +9,22 @@
 import Cocoa
 
 class CanvasWindowController: NSWindowController {
+    let DPI = 72
+    let CM_PER_INCH = 2.54
+    let PORTRAIT = 0
+    
     @IBOutlet var canvas: Canvas!
+    
     @IBOutlet var pageSelectionPanel: NSPanel!
     @IBOutlet var pageSelection: NSTextField!
+    
+    var pageFormats : [String : NSSize]?
+    @IBOutlet var pageFormatPanel: NSPanel!
+    @IBOutlet var pageFormatPicker: NSPopUpButton!
+    @IBOutlet var pageWidth: NSTextField!
+    @IBOutlet var pageHeight: NSTextField!
+    @IBOutlet var pageResolution: NSTextField!
+    @IBOutlet var pageOrientationPicker: NSPopUpButton!
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -40,6 +53,72 @@ class CanvasWindowController: NSWindowController {
         default: break
         }
     }
+    
+    func showPageFormatPicker() {
+        let defaultPageFormats = (NSApp.delegate as! AppDelegate).defaultPageFormats
+        let displayNames = defaultPageFormats.displayNames as! [String]
+        //let sizes = defaultPageFormats.sizes.map({($0 as! NSValue).sizeValue})
+        pageFormats = Dictionary<String,NSSize>()
+        for (index, elem) in defaultPageFormats.sizes.enumerate() {
+            pageFormats![displayNames[index]] = (elem as! NSValue).sizeValue
+        }
+
+        window!.beginSheet(pageFormatPanel, completionHandler: nil)
+        pageFormatPicker.removeAllItems()
+        pageFormatPicker.addItemsWithTitles(displayNames)
+        pageOrientationPicker.removeAllItems()
+        pageOrientationPicker.addItemsWithTitles([
+            NSLocalizedString("Portrait", comment: "horizontal paper orientation"),
+            NSLocalizedString("Landscape", comment: "vertical paper orientation")])
+        pageResolution.takeIntegerValueFrom(DPI) // TODO make changeable
+        
+        if let defaultFormat = NSPrintInfo.sharedPrintInfo().paperName {
+            let identifiers = defaultPageFormats.identifiers as! [String]
+            if let index = identifiers.indexOf(defaultFormat) {
+                pageFormatPicker.selectItemAtIndex(index)
+            }
+        }
+        formatPickerAction(self)
+    }
+    
+    @IBAction func formatPickerAction(sender: AnyObject) {
+        let pageSize = pageSizeWithOrientation()
+        pageWidth.takeFloatValueFrom(Double(pageSize.width) / Double(DPI) * CM_PER_INCH)
+        pageHeight.takeFloatValueFrom(Double(pageSize.height) / Double(DPI) * CM_PER_INCH)
+    }
+    
+    func pageSizeWithOrientation() -> NSSize {
+        if let selection = pageFormatPicker.selectedItem {
+            let pageSize = pageFormats![selection.title]!
+            let shortedge = min(pageSize.width, pageSize.height)
+            let longedge = max(pageSize.width, pageSize.height)
+            let orientation = pageOrientationPicker.indexOfSelectedItem
+            if orientation == PORTRAIT {
+                return NSSize(width: shortedge, height: longedge)
+            } else {
+                return NSSize(width: longedge, height: shortedge)
+            }
+        }
+        return NSSize()
+    }
+    
+    @IBAction func closePageFormatPicker(sender: AnyObject) {
+        window!.endSheet(pageFormatPanel)
+        pageFormatPanel.orderOut(sender)
+        if (self != sender as! NSObject) {
+            (document as! Document).close()
+        }
+    }
+    
+    @IBAction func pickPageFormat(sender: AnyObject) {
+        let pageSize = pageSizeWithOrientation()
+        if pageSize.width * pageSize.height > 0 {
+            (document as! Document).setInitialPageFormat(size: pageSize)
+            closePageFormatPicker(self)
+        } else {
+            NSBeep()
+        }
+    }
 
     @IBAction func showPageSelectionPanel(sender: AnyObject) {
         window!.beginSheet(pageSelectionPanel, completionHandler: nil)
@@ -55,7 +134,7 @@ class CanvasWindowController: NSWindowController {
     
     @IBAction func goToPage(sender: AnyObject) {
         let pageNumber = pageSelection.integerValue
-        closePageSelectionPanel(sender)
+        closePageSelectionPanel(self)
         if !canvas.goToPage(pageNumber-1) {
             NSBeep()
         }
