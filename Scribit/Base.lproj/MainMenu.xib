@@ -207,17 +207,20 @@
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="UJm-3b-7fC"/>
-                            <menuItem title="New Page" keyEquivalent="N" id="5yO-JR-LJB">
+                            <menuItem title="New Page" keyEquivalent="n" id="5yO-JR-LJB">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="appendPage:" target="-1" id="sgH-Aj-tDy"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Insert Page" keyEquivalent="i" id="2iN-Cc-pdt">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="insertPage:" target="-1" id="N8B-7P-OUU"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Delete Current Page" keyEquivalent="d" id="XHM-xX-xFq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="deletePage:" target="-1" id="Ihy-Gd-nxd"/>
                                 </connections>

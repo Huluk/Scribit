@@ -7,3 +7,5 @@
 #import "Wacom.h"
 #import "WacomPlugin.h"
 #import "WacomTabletDriver.h"
+
+#import "DefaultPageFormats.h"

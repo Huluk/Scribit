@@ -13,6 +13,7 @@
 		030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8ED1C348659006DFF12 /* TabletEvents.m */; };
 		030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F01C348659006DFF12 /* WacomPlugIn.m */; };
 		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; };
+		035A105B1C7E56C8006D6C2E /* DefaultPageFormats.m in Sources */ = {isa = PBXBuildFile; fileRef = 035A105A1C7E56C8006D6C2E /* DefaultPageFormats.m */; };
 		0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6A91C36A7B10016263D /* LineSegment.swift */; };
 		0364F6AD1C36C96B0016263D /* WTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6AC1C36C96B0016263D /* WTView.swift */; };
 		0364F6B11C3878430016263D /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6B01C3878430016263D /* Brush.swift */; };
@@ -64,6 +65,8 @@
 		030BD8F11C348659006DFF12 /* WacomTabletDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WacomTabletDriver.h; sourceTree = "<group>"; };
 		030BD8F21C348659006DFF12 /* WacomTabletDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WacomTabletDriver.m; sourceTree = "<group>"; };
 		030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scribit-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		035A10591C7E56C8006D6C2E /* DefaultPageFormats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultPageFormats.h; sourceTree = "<group>"; };
+		035A105A1C7E56C8006D6C2E /* DefaultPageFormats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultPageFormats.m; sourceTree = "<group>"; };
 		0364F6A91C36A7B10016263D /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineSegment.swift; path = Data/LineSegment.swift; sourceTree = "<group>"; };
 		0364F6AC1C36C96B0016263D /* WTView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTView.swift; sourceTree = "<group>"; };
 		0364F6B01C3878430016263D /* Brush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Brush.swift; path = Data/Brush.swift; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				03D417EE1C32C22700F937DD /* Canvas.swift */,
 				0364F6AC1C36C96B0016263D /* WTView.swift */,
 				037DAC751C67588D001AA104 /* CanvasWindowController.swift */,
+				035A10591C7E56C8006D6C2E /* DefaultPageFormats.h */,
+				035A105A1C7E56C8006D6C2E /* DefaultPageFormats.m */,
 			);
 			path = Scribit;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 			files = (
 				030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */,
 				03D417C31C32B2CA00F937DD /* Document.swift in Sources */,
+				035A105B1C7E56C8006D6C2E /* DefaultPageFormats.m in Sources */,
 				0364F6B11C3878430016263D /* Brush.swift in Sources */,
 				030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */,
 				03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */,

@@ -14,7 +14,7 @@ class Document: NSDocument {
     let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
     let archiveMagnificationKey = "scrollViewMagnificationKey"
     
-    let defaultPageRect = NSMakeRect(0, 0, 100, 200)
+    var defaultPageRect : NSRect
     let defaultPageBackgroundColor = NSColor.whiteColor()
     
     weak var canvas: Canvas!
@@ -24,8 +24,16 @@ class Document: NSDocument {
     var fileUnarchiver: NSKeyedUnarchiver?
 
     override init() {
+        defaultPageRect = NSRect(origin: NSPoint(), size: NSPrintInfo.sharedPrintInfo().paperSize)
         super.init()
         pages.append(Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor))
+        
+        /* TODO use for size adjustment / new documents
+        let appDelegate = NSApp.delegate as! AppDelegate
+        let formats = appDelegate.defaultPageFormats.pageFormats as! [String]
+        for format : String in formats {
+            NSLog("\(NSPrintInfo.sharedPrintInfo().printer.pageSizeForPaper(format))")
+        }*/
     }
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {

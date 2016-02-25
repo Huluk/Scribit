@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     let dataDirectory = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.ApplicationSupportDirectory, .UserDomainMask, true)[0]).URLByAppendingPathComponent("Scribit")
     var brushesPlist: NSURL { return dataDirectory.URLByAppendingPathComponent("Brushes.plist") }
+    
+    var defaultPageFormats = DefaultPageFormats()
 
     var brushes = [Brush.defaultPen]
 
