@@ -26,6 +26,8 @@ class CanvasWindowController: NSWindowController {
     @IBOutlet var pageResolution: NSTextField!
     @IBOutlet var pageOrientationPicker: NSPopUpButton!
     
+    var brushKeyMapping = ["1":0]
+    
     override func windowDidLoad() {
         super.windowDidLoad()
         canvas.document = document as! Document
@@ -50,7 +52,12 @@ class CanvasWindowController: NSWindowController {
         switch event.keyCode {
         case 123: canvas.goToPage(canvas.currentPageIndex - 1) // left arrow
         case 124: canvas.goToPage(canvas.currentPageIndex + 1) // right arrow
-        default: break
+        default:
+            if let chars = event.charactersIgnoringModifiers {
+                if let brushKey = brushKeyMapping[chars] {
+                    canvas.currentBrushIndex = brushKey
+                }
+            }
         }
     }
     

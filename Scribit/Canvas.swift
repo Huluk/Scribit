@@ -9,7 +9,7 @@
 import Cocoa
 
 class Canvas: WTView {
-    static var margin:CGFloat = 300
+    let margin:CGFloat = 300
     
     @IBOutlet var document: Document!
     
@@ -63,11 +63,11 @@ class Canvas: WTView {
     
     func rescale(targetSize: NSSize) {
         let desktop = NSMakeRect(0, 0,
-            targetSize.width + 2*Canvas.margin,
-            targetSize.height + 2*Canvas.margin)
+            targetSize.width + 2*margin,
+            targetSize.height + 2*margin)
         superview!.frame = desktop
         superview!.bounds = desktop
-        frame = NSRect(origin: NSMakePoint(Canvas.margin, Canvas.margin), size: targetSize)
+        frame = NSRect(origin: NSMakePoint(margin, margin), size: targetSize)
         bounds = NSRect(origin: NSPoint(), size: targetSize)
     }
     
