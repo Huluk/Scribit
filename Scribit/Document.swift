@@ -35,8 +35,7 @@ class Document: NSDocument {
                 canvas.currentPageIndex = unarchiver.decodeIntegerForKey(archiveCurrentPageIndexKey)
                 unarchiver.finishDecoding()
                 self.undoManager?.enableUndoRegistration()
-            } else {
-                canvas.enclosingScrollView!.magnification = 1.4 // TODO
+            } else if NSIsEmptyRect(defaultPageRect) {
                 canvasWindowController.showPageFormatPicker()
             }
         }
@@ -47,6 +46,7 @@ class Document: NSDocument {
         defaultPageRect = NSRect(origin: NSPoint(), size: size)
         pages = [Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor)]
         canvas.reload()
+        canvas.enclosingScrollView!.magnifyToFitRect(canvas.frame)
     }
 
     override class func autosavesInPlace() -> Bool {
