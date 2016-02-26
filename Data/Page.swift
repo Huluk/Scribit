@@ -11,7 +11,7 @@ import Cocoa
 class Page: NSObject, NSCoding {
     var bounds: NSRect
     var backgroundColor: NSColor
-    var lines = [Line]()
+    var lines = [[Line](), [Line](), [Line](), [Line]()]
     
     init(pageRect: NSRect, backgroundColor: NSColor) {
         self.bounds = pageRect
@@ -21,19 +21,27 @@ class Page: NSObject, NSCoding {
     required init(coder: NSCoder) {
         bounds = coder.decodeRect()
         backgroundColor = coder.decodeObject() as! NSColor
-        lines = coder.decodeObject() as! [Line]
+        lines = coder.decodeObject() as! [[Line]]
     }
     
     func addLine(line: Line) {
-        lines.append(line)
+        lines[layer(line)].append(line)
     }
     
     func deleteLine(line: Line) {
-        if (lines.last == line) {
-            lines.removeLast()
+        deleteLineFromLayer(line, layer: &lines[layer(line)])
+    }
+    
+    private func deleteLineFromLayer(line: Line, inout layer: [Line]) {
+        if layer.last == line {
+            layer.removeLast()
         } else {
-            lines.removeAtIndex(lines.indexOf(line)!)
+            layer.removeAtIndex(layer.indexOf(line)!)
         }
+    }
+    
+    func layer(line: Line) -> Int {
+        return line.type.rawValue
     }
     
     func encodeWithCoder(coder: NSCoder) {

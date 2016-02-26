@@ -12,6 +12,7 @@ class CanvasWindowController: NSWindowController {
     let DPI = 72
     let CM_PER_INCH = 2.54
     let PORTRAIT = 0
+    unowned let appDelegate = NSApp.delegate as! AppDelegate
     
     @IBOutlet var canvas: Canvas!
     
@@ -26,11 +27,8 @@ class CanvasWindowController: NSWindowController {
     @IBOutlet var pageResolution: NSTextField!
     @IBOutlet var pageOrientationPicker: NSPopUpButton!
     
-    var brushKeyMapping = ["1":0]
-    
     override func windowDidLoad() {
         super.windowDidLoad()
-        canvas.document = document as! Document
         document?.windowControllerDidLoadNib(self)
     }
 
@@ -54,7 +52,7 @@ class CanvasWindowController: NSWindowController {
         case 124: canvas.goToPage(canvas.currentPageIndex + 1) // right arrow
         default:
             if let chars = event.charactersIgnoringModifiers {
-                if let brushKey = brushKeyMapping[chars] {
+                if let brushKey = appDelegate.brushKeyMapping[chars] {
                     canvas.currentBrushIndex = brushKey
                 }
             }
@@ -62,7 +60,7 @@ class CanvasWindowController: NSWindowController {
     }
     
     func showPageFormatPicker() {
-        let defaultPageFormats = (NSApp.delegate as! AppDelegate).defaultPageFormats
+        let defaultPageFormats = appDelegate.defaultPageFormats
         let displayNames = defaultPageFormats.displayNames as! [String]
         //let sizes = defaultPageFormats.sizes.map({($0 as! NSValue).sizeValue})
         pageFormats = Dictionary<String,NSSize>()

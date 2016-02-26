@@ -15,7 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var defaultPageFormats = DefaultPageFormats()
 
-    var brushes = [Brush.defaultPen]
+    var brushes = [Brush.defaultPen, Brush.defaultHighlighter]
+    var brushKeyMapping = ["1":0, "2":1]
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         if (NSFileManager.defaultManager().isReadableFileAtPath(brushesPlist.path!)) {

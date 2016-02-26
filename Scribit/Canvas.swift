@@ -23,19 +23,23 @@ class Canvas: WTView {
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        currentPage().backgroundColor.set()
-        NSRectFill(dirtyRect)
-        for line in currentPage().lines {
-            if NSIntersectsRect(line.bounds, dirtyRect) {
-                drawLine(line)
+        if let page = currentPage {
+            page.backgroundColor.set()
+            NSRectFill(dirtyRect)
+            for layer in page.lines.reverse() {
+                for line in layer {
+                    if NSIntersectsRect(line.bounds, dirtyRect) {
+                        drawLine(line)
+                    }
+                }
             }
         }
     }
     
     override func mouseDown(theEvent: NSEvent) {
         super.mouseDown(theEvent)
-        currentLine = Line(brush: currentBrush())
-        document!.addLineOnPage(line: currentLine!, page: currentPage())
+        currentLine = Line(brush: currentBrush)
+        document!.addLineOnPage(line: currentLine!, page: currentPage)
     }
     
     override func mouseDragged(theEvent: NSEvent) {
@@ -56,7 +60,7 @@ class Canvas: WTView {
     }
     
     func reload() {
-        rescale(currentPage().size())
+        rescale(currentPage.size())
         document.updateWindowTitle()
         setNeedsDisplayInRect(bounds)
     }
@@ -71,11 +75,15 @@ class Canvas: WTView {
         bounds = NSRect(origin: NSPoint(), size: targetSize)
     }
     
-    func currentPage() -> Page {
-        return document.pages[currentPageIndex]
+    var currentPage: Page! {
+        if document != nil {
+            return document.pages[currentPageIndex]
+        } else {
+            return nil
+        }
     }
     
-    func currentBrush() -> Brush {
+    var currentBrush: Brush {
         return document.brushes[currentBrushIndex]
     }
     
@@ -104,8 +112,8 @@ class Canvas: WTView {
     }
     
     // Return the drawing rectangle for a particular page number
-    override func rectForPage(page: Int) -> NSRect {
-        currentPageIndex = page-1
+    override func rectForPage(pageIndex: Int) -> NSRect {
+        currentPageIndex = pageIndex - 1
         return document.pages[currentPageIndex].bounds
     }
 }

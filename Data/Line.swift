@@ -8,13 +8,14 @@
 
 import Cocoa
 
-class Line: NSObject, NSCoding {
+class Line: NSObject, NSCoding { // TODO line-local coordinates
     // number of line segments which are used to calculate the current bezier path while drawing
     let concurrentDrawingContext = 3
     
     var segments = [LineSegment]()
     var brush: Brush
     var bounds = NSRect()
+    var type:BrushType { return brush.type }
     
     init(brush: Brush) {
         self.brush = brush

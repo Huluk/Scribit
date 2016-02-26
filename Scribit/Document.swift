@@ -13,14 +13,13 @@ class Document: NSDocument {
     let archivePagesKey = "documentPagesKey"
     let archiveBrushesKey = "documentBrushesKey"
     let archiveCurrentPageIndexKey = "canvasCurrentPageIndexKey"
-    let archiveMagnificationKey = "scrollViewMagnificationKey"
     
     var defaultPageRect = NSRect()
     let defaultPageBackgroundColor = NSColor.whiteColor()
     
     weak var canvas: Canvas!
-    var pages = [Page(pageRect: NSRect(), backgroundColor: NSColor.whiteColor())]
-    var brushes = [Brush.defaultPen]
+    var pages = [Page]()
+    var brushes = (NSApp.delegate as! AppDelegate).brushes
     
     var fileUnarchiver: NSKeyedUnarchiver?
 
@@ -28,23 +27,24 @@ class Document: NSDocument {
         super.windowControllerDidLoadNib(aController)
         if let canvasWindowController = aController as? CanvasWindowController {
             canvas = canvasWindowController.canvas
-            canvas.document = self
             if let unarchiver = fileUnarchiver {
                 fileUnarchiver = nil
                 self.undoManager?.disableUndoRegistration()
                 canvas.currentPageIndex = unarchiver.decodeIntegerForKey(archiveCurrentPageIndexKey)
                 unarchiver.finishDecoding()
+                canvas.document = self
+                canvas.reload()
                 self.undoManager?.enableUndoRegistration()
             } else if NSIsEmptyRect(defaultPageRect) {
                 canvasWindowController.showPageFormatPicker()
             }
         }
-        canvas.reload()
     }
     
     func setInitialPageFormat(size size : NSSize) {
         defaultPageRect = NSRect(origin: NSPoint(), size: size)
         pages = [Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor)]
+        canvas.document = self
         canvas.reload()
         canvas.enclosingScrollView!.magnifyToFitRect(canvas.frame)
     }
