@@ -35,18 +35,18 @@ class LineView: NSView {
     }
     
     func setBoundsOrigin() {
-        let center = line.coordTransformLocalToGlobal.transformPoint(NSPoint())
-        setBoundsOrigin(NSMakePoint(-center.x, -center.y))
+        let globalToLocal = NSAffineTransform(transform: line.coordTransformLocalToGlobal)
+        globalToLocal.invert()
+        let center = globalToLocal.transformPoint(NSPoint())
+        setBoundsOrigin(NSMakePoint(center.x, center.y))
     }
     
     override func drawRect(dirtyRect: NSRect) {
         super.drawRect(dirtyRect)
         let brushSize = line.widestSize / 2
         let expandedDirtyRect = NSMakeRect(
-            dirtyRect.origin.x - brushSize,
-            dirtyRect.origin.y - brushSize,
-            dirtyRect.width + 2*brushSize,
-            dirtyRect.height + 2*brushSize)
+            dirtyRect.origin.x - brushSize, dirtyRect.origin.y - brushSize,
+            dirtyRect.width + 2*brushSize, dirtyRect.height + 2*brushSize)
         for (color, path, bounds) in content {
             if NSIntersectsRect(bounds, expandedDirtyRect) {
                 color.set()
