@@ -82,15 +82,10 @@ class Canvas: WTView {
     
     func reload() {
         rescale(currentPage.size())
-        document.updateWindowTitle()
         if let _ = subviews.last as? PageView {
             subviews.removeLast()
         }
         addSubview(pageView(currentPage))
-        for line in currentPage.allLines() {
-            pageView(currentPage).addLine(line)
-        }
-        setNeedsDisplayInRect(bounds)
     }
     
     func rescale(targetSize: NSSize) {
@@ -133,6 +128,7 @@ class Canvas: WTView {
         if pageIndex >= 0 && pageIndex < document.pages.count {
             currentPageIndex = pageIndex
             reload()
+            document.updateWindowTitle()
             return true
         } else {
             return false
@@ -155,6 +151,7 @@ class Canvas: WTView {
     // Return the drawing rectangle for a particular page number
     override func rectForPage(pageIndex: Int) -> NSRect {
         currentPageIndex = pageIndex - 1
+        reload()
         return document.pages[currentPageIndex].bounds
     }
 }
