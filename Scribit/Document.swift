@@ -32,8 +32,7 @@ class Document: NSDocument {
                 self.undoManager?.disableUndoRegistration()
                 canvas.currentPageIndex = unarchiver.decodeIntegerForKey(archiveCurrentPageIndexKey)
                 unarchiver.finishDecoding()
-                canvas.document = self
-                canvas.reload()
+                canvas.linkDocument(self)
                 self.undoManager?.enableUndoRegistration()
             } else if NSIsEmptyRect(defaultPageRect) {
                 canvasWindowController.showPageFormatPicker()
@@ -44,8 +43,7 @@ class Document: NSDocument {
     func setInitialPageFormat(size size : NSSize) {
         defaultPageRect = NSRect(origin: NSPoint(), size: size)
         pages = [Page(pageRect: defaultPageRect, backgroundColor: defaultPageBackgroundColor)]
-        canvas.document = self
-        canvas.reload()
+        canvas.linkDocument(self)
         canvas.enclosingScrollView!.magnifyToFitRect(canvas.frame)
     }
 
@@ -55,16 +53,16 @@ class Document: NSDocument {
     
     func addLineOnPage(line line: Line, page: Page) {
         page.addLine(line)
+        canvas.addLine(line, onPage: pageIndex(page)!)
         undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
         undoManager!.setActionName(NSLocalizedString("Add Line", comment: "undo add line"))
-        canvas.setNeedsDisplayInRect(line.bounds, onPage: pageIndex(page)!)
     }
     
     func deleteLineOnPage(line line: Line, page: Page) {
         page.deleteLine(line)
+        canvas.deleteLine(line, onPage: pageIndex(page)!)
         undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
         undoManager!.setActionName(NSLocalizedString("Delete Line", comment: "undo delete line"))
-        canvas.setNeedsDisplayInRect(line.bounds, onPage: pageIndex(page)!)
     }
     
     func addPage(index index: Int) {

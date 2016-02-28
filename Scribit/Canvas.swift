@@ -17,29 +17,18 @@ class Canvas: WTView {
     var currentBrushIndex = 0
     var currentLine: Line?
     
-    func drawLine(line: Line) {
-        line.brush.color.set()
-        line.bezierPath().stroke()
-    }
+    var pageViews = [Page : PageView]()
     
-    override func drawRect(dirtyRect: NSRect) {
-        if let page = currentPage {
-            page.backgroundColor.set()
-            NSRectFill(dirtyRect)
-            for layer in page.lines.reverse() {
-                for line in layer {
-                    if NSIntersectsRect(line.bounds, dirtyRect) {
-                        drawLine(line)
-                    }
-                }
-            }
-        }
+    func linkDocument(document: Document) {
+        self.document = document
+        goToPage(currentPageIndex)
     }
     
     override func mouseDown(theEvent: NSEvent) {
         super.mouseDown(theEvent)
         currentLine = Line(brush: currentBrush)
         document!.addLineOnPage(line: currentLine!, page: currentPage)
+        pageView(currentPage).addLine(currentLine!)
     }
     
     override func mouseDragged(theEvent: NSEvent) {
@@ -47,21 +36,60 @@ class Canvas: WTView {
         super.mouseDragged(theEvent)
         currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
         needsDisplay = true
-        setNeedsDisplayInRect(currentLine!.bounds)
+        pageView(currentPage).updateLine(currentLine!)
+        
+        /*var keepDragging = true
+        while (keepDragging) {
+            if let event = self.window!.nextEventMatchingMask(
+                Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue))
+            {
+                switch(event.type) {
+                case .LeftMouseDragged: drawCurrentDataFromEvent(event)
+                case .LeftMouseUp: keepDragging = false
+                default: break
+                }
+            }
+        }*/
     }
     
     override func mouseUp(theEvent: NSEvent) {
         let previousMousePosition = mousePosition
         super.mouseUp(theEvent)
         currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
-        currentLine!.interpolateCurves()
-        setNeedsDisplayInRect(currentLine!.bounds)
+        currentLine!.finishDrawing()
+        pageView(currentPage).refreshLine(currentLine!)
         currentLine = nil
     }
+    
+    /*
+    func drawCurrentDataFromEvent(event: NSEvent) {
+        let path = NSBezierPath()
+        let currentLoc = convertPoint(event.locationInWindow, fromView: nil)
+        let pressure = event.pressure
+        lockFocus()
+        path.lineCapStyle = currentBrush.lineCapStyle
+        path.lineWidth = currentBrush.sizeFromPressure(pressure)
+        currentBrush.colorFromPressure(pressure).set()
+        path.moveToPoint(mousePosition)
+        path.lineToPoint(currentLoc)
+        path.stroke()
+        unlockFocus()
+        mousePosition = currentLoc
+        window!.flushWindow() // TODO change
+        NSLog("fr \(frame) bou \(bounds) last \(mousePosition) curr \(currentLoc)")
+        
+    }*/
     
     func reload() {
         rescale(currentPage.size())
         document.updateWindowTitle()
+        if let _ = subviews.last as? PageView {
+            subviews.removeLast()
+        }
+        addSubview(pageView(currentPage))
+        for line in currentPage.allLines() {
+            pageView(currentPage).addLine(line)
+        }
         setNeedsDisplayInRect(bounds)
     }
     
@@ -73,6 +101,20 @@ class Canvas: WTView {
         superview!.bounds = desktop
         frame = NSRect(origin: NSMakePoint(margin, margin), size: targetSize)
         bounds = NSRect(origin: NSPoint(), size: targetSize)
+    }
+    
+    func addLine(line: Line, onPage pageIndex: Int) {
+        pageView(document.pages[pageIndex]).addLine(line)
+        if (pageIndex != currentPageIndex) {
+            goToPage(pageIndex)
+        }
+    }
+    
+    func deleteLine(line: Line, onPage pageIndex: Int) {
+        pageView(document.pages[pageIndex]).deleteLine(line)
+        if (pageIndex != currentPageIndex) {
+            goToPage(pageIndex)
+        }
     }
     
     var currentPage: Page! {
@@ -97,12 +139,11 @@ class Canvas: WTView {
         }
     }
     
-    func setNeedsDisplayInRect(invalidRect: NSRect, onPage pageIndex: Int) {
-        if pageIndex == currentPageIndex {
-            setNeedsDisplayInRect(invalidRect)
-        } else {
-            goToPage(pageIndex)
+    private func pageView(page: Page) -> PageView {
+        if pageViews[page] == nil {
+            pageViews[page] = PageView(page: page, frame: bounds)
         }
+        return pageViews[page]!
     }
     
     // Return the number of pages available for printing

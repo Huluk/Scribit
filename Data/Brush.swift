@@ -9,7 +9,7 @@
 import Cocoa
 
 enum BrushType : Int {
-    case Pen = 0, Highlighter = 2, Eraser = -1
+    case Pen = 2, Highlighter = 0, Eraser = -1
 }
 
 class Brush: NSObject,NSCoding {
@@ -56,6 +56,10 @@ class Brush: NSObject,NSCoding {
     }
     
     func sizeFromPressure(pressure: Float) -> CGFloat {
+        return size
+    }
+    
+    var widestSize: CGFloat {
         return size
     }
 }

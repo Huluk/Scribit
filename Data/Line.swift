@@ -8,34 +8,35 @@
 
 import Cocoa
 
-class Line: NSObject, NSCoding { // TODO line-local coordinates
+class Line: NSObject, NSCoding {
     // number of line segments which are used to calculate the current bezier path while drawing
     let concurrentDrawingContext = 3
     
     var segments = [LineSegment]()
     var brush: Brush
-    var bounds = NSRect()
     var type:BrushType { return brush.type }
+    var coordTransformLocalToGlobal: NSAffineTransform
+    private(set) var final = false
     
     init(brush: Brush) {
         self.brush = brush
+        self.coordTransformLocalToGlobal = NSAffineTransform()
     }
     
     required init(coder: NSCoder) {
         self.segments = coder.decodeObject() as! [LineSegment]
         self.brush = coder.decodeObject() as! Brush
-        self.bounds = coder.decodeRect()
+        self.coordTransformLocalToGlobal = coder.decodeObject() as! NSAffineTransform
     }
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(segments)
         coder.encodeObject(brush)
-        coder.encodeRect(bounds)
+        coder.encodeObject(coordTransformLocalToGlobal)
     }
     
     func addSegment(segment: LineSegment) {
         segments.append(segment)
-        bounds = NSUnionRect(bounds, segment.bounds)
         let n = segments.count
         let start_n = n - concurrentDrawingContext
         var newestSegments = Array(segments[max(0,start_n)..<n])
@@ -46,26 +47,46 @@ class Line: NSObject, NSCoding { // TODO line-local coordinates
         interpolateCurves(newestSegments)
     }
     
-    func bezierPath() -> NSBezierPath {
-        let path = NSBezierPath()
-        path.lineCapStyle = brush.lineCapStyle
-        path.lineWidth = brush.size
-        for segment in segments {
-            path.moveToPoint(segment.start)
-            path.curveToPoint(segment.end,
-                controlPoint1: segment.firstControlPoint, controlPoint2: segment.secondControlPoint)
+    func drawingContent(fromIndex startIndex: Int) -> [(NSColor, NSBezierPath, NSRect)] {
+        var content = [(NSColor, NSBezierPath, NSRect)]()
+        for segment in segments.suffixFrom(startIndex) {
+            var path = NSBezierPath()
+            path.lineCapStyle = .RoundLineCapStyle
+            path.lineWidth = brush.sizeFromPressure(segment.pressure)
+            segment.drawCurve(&path)
+            content.append((brush.colorFromPressure(segment.pressure), path, segment.bounds))
         }
-        return path
+        return content
     }
     
-    func interpolateCurves() {
-        interpolateCurves(segments)
-        bounds = NSRect()
+    func finishDrawing() {
+        let bounds = internalBounds()
+        let center = NSMakePoint(NSMinX(bounds)+NSWidth(bounds)/2, NSMinY(bounds)+NSHeight(bounds)/2)
+        coordTransformLocalToGlobal.translateXBy(center.x, yBy: center.y)
+        let globalToLocal = NSAffineTransform(transform: coordTransformLocalToGlobal)
+        globalToLocal.invert()
         for segment in segments {
-            segment.calculateBounds()
-            bounds = NSUnionRect(bounds, segment.bounds)
+            segment.start = globalToLocal.transformPoint(segment.start)
+            segment.end = globalToLocal.transformPoint(segment.end)
         }
+        interpolateCurves(segments) // implicitly takes care of control point transform
     }
+    
+    func internalBounds() -> NSRect {
+        return segments.reduce(NSRect(), combine: {NSUnionRect($0, $1.bounds)})
+    }
+    
+    func drawingBounds() -> NSRect {
+        let drawingMargin = ceil(brush.widestSize / 2)
+        let bounds = internalBounds()
+        let drawingSize = coordTransformLocalToGlobal.transformSize(
+            NSMakeSize(bounds.width+2*drawingMargin, bounds.height+2*drawingMargin))
+        let drawingOrigin = coordTransformLocalToGlobal.transformPoint(
+            NSMakePoint(bounds.origin.x-drawingMargin, bounds.origin.y-drawingMargin))
+        return NSRect(origin: drawingOrigin, size: drawingSize)
+    }
+    
+    var widestSize: CGFloat { return brush.widestSize }
     
     // Algorithm by Oleg V. Polikarpotchkin and Peter Lee, 24 Mar 2009
     // http://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-D-Points-wit

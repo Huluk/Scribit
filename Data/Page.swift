@@ -9,13 +9,16 @@
 import Cocoa
 
 class Page: NSObject, NSCoding {
+    static let layerCount = 4
+    
     var bounds: NSRect
     var backgroundColor: NSColor
-    var lines = [[Line](), [Line](), [Line](), [Line]()]
+    var lines: [[Line]]
     
     init(pageRect: NSRect, backgroundColor: NSColor) {
         self.bounds = pageRect
         self.backgroundColor = backgroundColor
+        self.lines = (0..<Page.layerCount).map({_ in [Line]()})
     }
     
     required init(coder: NSCoder) {
@@ -42,6 +45,10 @@ class Page: NSObject, NSCoding {
     
     func layer(line: Line) -> Int {
         return line.type.rawValue
+    }
+    
+    func allLines() -> FlattenBidirectionalCollection<[[Line]]> {
+        return lines.flatten()
     }
     
     func encodeWithCoder(coder: NSCoder) {

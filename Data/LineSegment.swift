@@ -14,7 +14,6 @@ class LineSegment : NSObject,NSCoding {
     var firstControlPoint: NSPoint
     var secondControlPoint: NSPoint
     var pressure: Float
-    var bounds: NSRect!
     
     init(start: NSPoint, end: NSPoint,
         controlPoint1: NSPoint, controlPoint2: NSPoint,
@@ -26,7 +25,6 @@ class LineSegment : NSObject,NSCoding {
         self.secondControlPoint = controlPoint2
         self.pressure = pressure
         super.init()
-        self.calculateBounds()
     }
     
     convenience init(lineSegment s: LineSegment) {
@@ -48,15 +46,20 @@ class LineSegment : NSObject,NSCoding {
         secondControlPoint = decoder.decodePoint()
         pressure = decoder.decodeFloatForKey(archivePressureKey)
         super.init()
-        calculateBounds()
     }
     
-    func calculateBounds() {
+    func drawCurve(inout path: NSBezierPath) {
+        path.moveToPoint(start)
+        path.curveToPoint(end,
+            controlPoint1: firstControlPoint, controlPoint2: secondControlPoint)
+    }
+    
+    var bounds: NSRect {
         let x = [start.x, end.x, firstControlPoint.x, secondControlPoint.x]
         let y = [start.y, end.y, firstControlPoint.y, secondControlPoint.y]
         let minX = x.minElement()!
         let minY = y.minElement()!
-        bounds = NSMakeRect(minX, minY, x.maxElement()!-minX, y.maxElement()!-minY)
+        return NSMakeRect(minX, minY, x.maxElement()!-minX, y.maxElement()!-minY)
     }
         
     func encodeWithCoder(coder: NSCoder) {
