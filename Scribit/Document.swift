@@ -59,8 +59,8 @@ class Document: NSDocument {
     }
     
     func deleteLineOnPage(line line: Line, page: Page) {
-        page.deleteLine(line)
         canvas.deleteLine(line, onPage: pageIndex(page)!)
+        page.deleteLine(line)
         undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
         undoManager!.setActionName(NSLocalizedString("Delete Line", comment: "undo delete line"))
     }

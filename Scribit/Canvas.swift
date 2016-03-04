@@ -28,7 +28,6 @@ class Canvas: WTView {
         super.mouseDown(theEvent)
         currentLine = Line(brush: currentBrush)
         document!.addLineOnPage(line: currentLine!, page: currentPage)
-        pageView(currentPage).addLine(currentLine!)
     }
     
     override func mouseDragged(theEvent: NSEvent) {
