@@ -24,8 +24,10 @@ class LineView: NSView {
     }
     
     func update() {
-        content.appendContentsOf(line.drawingContent(fromIndex: content.count))
-        needsDisplay = true
+        let newContent = line.drawingContent(fromIndex: content.count)
+        content.appendContentsOf(newContent)
+        let contentRect = newContent.reduce(NSRect(), combine: {NSUnionRect($0, $1.2)})
+        setNeedsDisplayInRect(line.rectWithDrawingMargin(contentRect))
     }
     
     func refresh() {
@@ -43,10 +45,7 @@ class LineView: NSView {
     
     override func drawRect(dirtyRect: NSRect) {
         super.drawRect(dirtyRect)
-        let brushSize = line.widestSize / 2
-        let expandedDirtyRect = NSMakeRect(
-            dirtyRect.origin.x - brushSize, dirtyRect.origin.y - brushSize,
-            dirtyRect.width + 2*brushSize, dirtyRect.height + 2*brushSize)
+        let expandedDirtyRect = line.rectWithDrawingMargin(dirtyRect)
         for (color, path, bounds) in content {
             if NSIntersectsRect(bounds, expandedDirtyRect) {
                 color.set()

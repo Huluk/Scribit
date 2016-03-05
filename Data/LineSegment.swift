@@ -8,6 +8,7 @@
 
 class LineSegment : NSObject,NSCoding {
     let archivePressureKey = "archiveLineSegmentPressureKey"
+    let smallValue:CGFloat = 0.00001
     
     var start: NSPoint
     var end: NSPoint
@@ -59,7 +60,9 @@ class LineSegment : NSObject,NSCoding {
         let y = [start.y, end.y, firstControlPoint.y, secondControlPoint.y]
         let minX = x.minElement()!
         let minY = y.minElement()!
-        return NSMakeRect(minX, minY, x.maxElement()!-minX, y.maxElement()!-minY)
+        let dX = x.maxElement()!-minX + smallValue
+        let dY = y.maxElement()!-minY + smallValue
+        return NSMakeRect(minX, minY, dX, dY)
     }
         
     func encodeWithCoder(coder: NSCoder) {

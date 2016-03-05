@@ -33,9 +33,12 @@ class Canvas: WTView {
     override func mouseDragged(theEvent: NSEvent) {
         let previousMousePosition = mousePosition
         super.mouseDragged(theEvent)
-        currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
-        needsDisplay = true
+        if currentLine == nil { mouseDown(theEvent) }
+        let newLineSegment = LineSegment(
+            start: previousMousePosition, end: mousePosition, pressure: penPressure)
+        currentLine!.addSegment(newLineSegment)
         pageView(currentPage).updateLine(currentLine!)
+        setNeedsDisplayInRect(newLineSegment.bounds)
         
         /*var keepDragging = true
         while (keepDragging) {

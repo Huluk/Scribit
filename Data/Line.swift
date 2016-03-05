@@ -76,13 +76,10 @@ class Line: NSObject, NSCoding {
         return segments.reduce(NSRect(), combine: {NSUnionRect($0, $1.bounds)})
     }
     
-    func drawingBounds() -> NSRect {
+    func rectWithDrawingMargin(rect: NSRect) -> NSRect {
         let drawingMargin = ceil(brush.widestSize / 2)
-        let bounds = internalBounds()
-        let drawingSize = coordTransformLocalToGlobal.transformSize(
-            NSMakeSize(bounds.width+2*drawingMargin, bounds.height+2*drawingMargin))
-        let drawingOrigin = coordTransformLocalToGlobal.transformPoint(
-            NSMakePoint(bounds.origin.x-drawingMargin, bounds.origin.y-drawingMargin))
+        let drawingSize = NSMakeSize(rect.width+2*drawingMargin, rect.height+2*drawingMargin)
+        let drawingOrigin = NSMakePoint(rect.origin.x-drawingMargin, rect.origin.y-drawingMargin)
         return NSRect(origin: drawingOrigin, size: drawingSize)
     }
     
