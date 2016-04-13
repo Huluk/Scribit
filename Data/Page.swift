@@ -28,27 +28,84 @@ class Page: NSObject, NSCoding {
     }
     
     func addLine(line: Line) {
-        lines[layer(line)].append(line)
+        addLine(line, crop: false)
+    }
+    
+    func addLine(line: Line, crop: Bool) {
+        lines[line.defaultLayer() + Int(crop)].append(line)
     }
     
     func deleteLine(line: Line) {
-        deleteLineFromLayer(line, layer: &lines[layer(line)])
-    }
-    
-    private func deleteLineFromLayer(line: Line, inout layer: [Line]) {
-        if layer.last == line {
-            layer.removeLast()
+        let n = line.defaultLayer()
+        if lines[n].last == line {
+            lines[n].removeLast()
+        } else if lines[n+1].last == line {
+            lines[n+1].removeLast()
+        } else if let index = lines[n].indexOf(line) {
+            lines[n].removeAtIndex(index)
+        } else if let index = lines[n+1].indexOf(line) {
+            lines[n+1].removeAtIndex(index)
         } else {
-            layer.removeAtIndex(layer.indexOf(line)!)
+            NSException(name: "line not found",
+                reason:"could not delete line `\(line)' on page `\(self)'!",
+                userInfo: nil).raise()
         }
     }
     
-    func layer(line: Line) -> Int {
-        return line.type.rawValue
+    func cropLine(line: Line) {
+        let n = line.defaultLayer()
+        let index = lines[n].indexOf(line)!
+        lines[n+1].append(lines[n].removeAtIndex(index))
+    }
+    
+    func uncropLine(line: Line) {
+        let n = line.defaultLayer()
+        let index = lines[n+1].indexOf(line)!
+        lines[n].append(lines[n+1].removeAtIndex(index))
     }
     
     func allLines() -> FlattenBidirectionalCollection<[[Line]]> {
         return lines.flatten()
+    }
+    
+    func crop(rect rect: NSRect, undoManager: NSUndoManager) {
+        for n in 0..<Page.layerCount {
+            if (n % 2 == 1) { continue }
+            var keepInLayer = [Line]()
+            for line in lines[n] {
+                let (inside: ins, outside: outs) = line.intersectingSegmentRanges(rect)
+                if ins.isEmpty {
+                    keepInLayer.append(line)
+                } else if outs.isEmpty {
+                    addLine(line, crop: true)
+                    undoManager.prepareWithInvocationTarget(self).uncropLine(line)
+                } else {
+                    undoManager.prepareWithInvocationTarget(self).addLine(line)
+                    addSplits(line, ins, crop: true, undoManager: undoManager)
+                    addSplits(line, outs, crop: false, undoManager: undoManager)
+                    keepInLayer.append(lines[n].last!)
+                }
+            }
+            lines[n] = keepInLayer
+        }
+    }
+    
+    func addSplits(line: Line, _ selection: [Range<Int>], crop: Bool, undoManager: NSUndoManager) {
+        for range in selection {
+            addLine(Line(line: line, segmentRange: range), crop: crop)
+            undoManager.prepareWithInvocationTarget(self).deleteLine(line)
+        }
+    }
+    
+    func uncropAll(undoManager undoManager: NSUndoManager) {
+        for n in 0..<Page.layerCount {
+            if n % 2 == 1 { // crop layer
+                for line in lines[n] {
+                    uncropLine(line)
+                    undoManager.prepareWithInvocationTarget(self).cropLine(line)
+                }
+            }
+        }
     }
     
     func encodeWithCoder(coder: NSCoder) {

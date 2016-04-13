@@ -8,6 +8,10 @@
 
 import Cocoa
 
+enum CursorMode {
+    case Draw, Selected, Dragging, RectSelect
+}
+
 class CanvasWindowController: NSWindowController {
     let DPI = 72
     let CM_PER_INCH = 2.54
@@ -19,6 +23,8 @@ class CanvasWindowController: NSWindowController {
     @IBOutlet var pageSelectionPanel: NSPanel!
     @IBOutlet var pageSelection: NSTextField!
     
+    var selectionView: SelectionView?
+    
     var pageFormats : [String : NSSize]?
     @IBOutlet var pageFormatPanel: NSPanel!
     @IBOutlet var pageFormatPicker: NSPopUpButton!
@@ -26,6 +32,8 @@ class CanvasWindowController: NSWindowController {
     @IBOutlet var pageHeight: NSTextField!
     @IBOutlet var pageResolution: NSTextField!
     @IBOutlet var pageOrientationPicker: NSPopUpButton!
+    
+    var cursorMode: CursorMode = .Draw
     
     override func windowDidLoad() {
         super.windowDidLoad()
@@ -47,16 +55,37 @@ class CanvasWindowController: NSWindowController {
     }
     
     override func keyDown(event: NSEvent) {
-        switch event.keyCode {
-        case 123: canvas.goToPage(canvas.currentPageIndex - 1) // left arrow
-        case 124: canvas.goToPage(canvas.currentPageIndex + 1) // right arrow
-        default:
-            if let chars = event.charactersIgnoringModifiers {
-                if let brushKey = appDelegate.brushKeyMapping[chars] {
-                    canvas.currentBrushIndex = brushKey
-                }
+        if let chars = event.charactersIgnoringModifiers {
+            if let brushKey = appDelegate.brushKeyMapping[chars] {
+                canvas.currentBrushIndex = brushKey
+                return
             }
         }
+        interpretKeyEvents([event])
+        // call list: http://www.hcs.harvard.edu/~jrus/Site/System%20Bindings.html
+    }
+    
+    override func moveLeft(sender: AnyObject?) {
+        canvas.goToPage(canvas.currentPageIndex - 1)
+    }
+    
+    override func moveRight(sender: AnyObject?) {
+        canvas.goToPage(canvas.currentPageIndex + 1)
+    }
+    
+    override func deleteBackward(sender: AnyObject?) {
+        // TODO canvas.deleteSelection()
+    }
+    
+    override func deleteForward(sender: AnyObject?) {
+        // TODO canvas.deleteSelection()
+    }
+    
+    @IBAction func makeRectangleSelection(sender: AnyObject?) {
+        selectionView = SelectionView(frame: canvas.bounds)
+        cursorMode = .RectSelect
+        canvas.addSubview(selectionView!)
+        window!.invalidateCursorRectsForView(canvas) // change cursor
     }
     
     func showPageFormatPicker() {

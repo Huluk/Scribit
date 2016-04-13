@@ -13,6 +13,8 @@
 		030BD8F71C348659006DFF12 /* TabletEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8ED1C348659006DFF12 /* TabletEvents.m */; };
 		030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F01C348659006DFF12 /* WacomPlugIn.m */; };
 		030BD8F91C348659006DFF12 /* WacomTabletDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 030BD8F21C348659006DFF12 /* WacomTabletDriver.m */; };
+		0345A5C01C9B178600C00871 /* LineSegmentTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0345A5BF1C9B178600C00871 /* LineSegmentTest.swift */; };
+		035047531CBEC25800D75599 /* PageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035047521CBEC25800D75599 /* PageTest.swift */; };
 		035A105B1C7E56C8006D6C2E /* DefaultPageFormats.m in Sources */ = {isa = PBXBuildFile; fileRef = 035A105A1C7E56C8006D6C2E /* DefaultPageFormats.m */; };
 		0364F6AA1C36A7B10016263D /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6A91C36A7B10016263D /* LineSegment.swift */; };
 		0364F6AD1C36C96B0016263D /* WTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0364F6AC1C36C96B0016263D /* WTView.swift */; };
@@ -21,6 +23,8 @@
 		037DAC761C67588D001AA104 /* CanvasWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037DAC751C67588D001AA104 /* CanvasWindowController.swift */; };
 		03ACD4F41C81E61800C298DF /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD4F31C81E61800C298DF /* LineView.swift */; };
 		03ACD4F61C82012900C298DF /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ACD4F51C82012900C298DF /* PageView.swift */; };
+		03B64DA11CBE73DD006BFACF /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B64DA01CBE73DD006BFACF /* SelectionView.swift */; };
+		03B64DA51CBEB712006BFACF /* LineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B64DA41CBEB712006BFACF /* LineTest.swift */; };
 		03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C01C32B2CA00F937DD /* AppDelegate.swift */; };
 		03D417C31C32B2CA00F937DD /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D417C21C32B2CA00F937DD /* Document.swift */; };
 		03D417C61C32B2CA00F937DD /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03D417C41C32B2CA00F937DD /* Document.xib */; };
@@ -67,6 +71,8 @@
 		030BD8F11C348659006DFF12 /* WacomTabletDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WacomTabletDriver.h; sourceTree = "<group>"; };
 		030BD8F21C348659006DFF12 /* WacomTabletDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WacomTabletDriver.m; sourceTree = "<group>"; };
 		030BD9011C349768006DFF12 /* Scribit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scribit-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		0345A5BF1C9B178600C00871 /* LineSegmentTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineSegmentTest.swift; sourceTree = "<group>"; };
+		035047521CBEC25800D75599 /* PageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTest.swift; sourceTree = "<group>"; };
 		035A10591C7E56C8006D6C2E /* DefaultPageFormats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultPageFormats.h; sourceTree = "<group>"; };
 		035A105A1C7E56C8006D6C2E /* DefaultPageFormats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultPageFormats.m; sourceTree = "<group>"; };
 		0364F6A91C36A7B10016263D /* LineSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineSegment.swift; path = Data/LineSegment.swift; sourceTree = "<group>"; };
@@ -76,6 +82,8 @@
 		037DAC751C67588D001AA104 /* CanvasWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasWindowController.swift; path = Scribit/CanvasWindowController.swift; sourceTree = "<group>"; };
 		03ACD4F31C81E61800C298DF /* LineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LineView.swift; path = Scribit/LineView.swift; sourceTree = "<group>"; };
 		03ACD4F51C82012900C298DF /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Scribit/PageView.swift; sourceTree = "<group>"; };
+		03B64DA01CBE73DD006BFACF /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionView.swift; path = Scribit/SelectionView.swift; sourceTree = "<group>"; };
+		03B64DA41CBEB712006BFACF /* LineTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineTest.swift; sourceTree = "<group>"; };
 		03D417BD1C32B2CA00F937DD /* Scribit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scribit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D417C01C32B2CA00F937DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D417C21C32B2CA00F937DD /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 				03D417EE1C32C22700F937DD /* Canvas.swift */,
 				03ACD4F51C82012900C298DF /* PageView.swift */,
 				03ACD4F31C81E61800C298DF /* LineView.swift */,
+				03B64DA01CBE73DD006BFACF /* SelectionView.swift */,
 				0364F6AC1C36C96B0016263D /* WTView.swift */,
 				03D417C41C32B2CA00F937DD /* Document.xib */,
 				03D417C71C32B2CA00F937DD /* Assets.xcassets */,
@@ -198,6 +207,9 @@
 			children = (
 				03D417D51C32B2CA00F937DD /* CanvasTests.swift */,
 				03D417D71C32B2CA00F937DD /* Info.plist */,
+				0345A5BF1C9B178600C00871 /* LineSegmentTest.swift */,
+				03B64DA41CBEB712006BFACF /* LineTest.swift */,
+				035047521CBEC25800D75599 /* PageTest.swift */,
 			);
 			path = ScribitTests;
 			sourceTree = "<group>";
@@ -308,6 +320,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 03D417B41C32B2CA00F937DD;
 			productRefGroup = 03D417BE1C32B2CA00F937DD /* Products */;
@@ -360,6 +373,7 @@
 				035A105B1C7E56C8006D6C2E /* DefaultPageFormats.m in Sources */,
 				0364F6B11C3878430016263D /* Brush.swift in Sources */,
 				030BD8F81C348659006DFF12 /* WacomPlugIn.m in Sources */,
+				03B64DA11CBE73DD006BFACF /* SelectionView.swift in Sources */,
 				03D417C11C32B2CA00F937DD /* AppDelegate.swift in Sources */,
 				03ACD4F61C82012900C298DF /* PageView.swift in Sources */,
 				03D417F21C32C74E00F937DD /* Page.swift in Sources */,
@@ -380,6 +394,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D417D61C32B2CA00F937DD /* CanvasTests.swift in Sources */,
+				03B64DA51CBEB712006BFACF /* LineTest.swift in Sources */,
+				035047531CBEC25800D75599 /* PageTest.swift in Sources */,
+				0345A5C01C9B178600C00871 /* LineSegmentTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,29 @@
 //  Copyright © 2016 Lars Hansen. All rights reserved.
 //
 
+enum PointToRectangleRelation : Int {
+    case
+    Inside = 0,
+    Left = 1,
+    Right = 2,
+    Below = 4,
+    Above = 8,
+    // combinations
+    LeftAndRight = 3,
+    LeftAndBelow = 5,
+    RightAndBelow = 6,
+    LeftAndAbove = 9,
+    RightAndAbove = 10,
+    AboveAndBelow = 12
+}
+
+func | (left: PointToRectangleRelation, right: PointToRectangleRelation) -> PointToRectangleRelation {
+    return PointToRectangleRelation(rawValue: left.rawValue | right.rawValue)!
+}
+func & (left: PointToRectangleRelation, right: PointToRectangleRelation) -> PointToRectangleRelation {
+    return PointToRectangleRelation(rawValue: left.rawValue & right.rawValue)!
+}
+
 class LineSegment : NSObject,NSCoding {
     let archivePressureKey = "archiveLineSegmentPressureKey"
     let smallValue:CGFloat = 0.00001
@@ -71,5 +94,54 @@ class LineSegment : NSObject,NSCoding {
         coder.encodePoint(firstControlPoint)
         coder.encodePoint(secondControlPoint)
         coder.encodeFloat(pressure, forKey:archivePressureKey)
+    }
+    
+    func intersectsRect(rect: NSRect) -> Bool {
+        // TODO use splines instead of straight line
+        // e.g. https://www.particleincell.com/2013/cubic-line-intersection/
+        let startRelation = relation(start, toRect:rect)
+        let endRelation = relation(end, toRect:rect)
+        let bothRelations = startRelation | endRelation
+    
+        if (startRelation == .Inside || endRelation == .Inside) {
+            return true
+        } else if (startRelation & endRelation != .Inside) { // both are on one side
+            return false
+        } else if bothRelations == .LeftAndRight || bothRelations == .AboveAndBelow {
+            return true
+        } else { // diagonal difference
+            if bothRelations == .LeftAndBelow || bothRelations == .RightAndAbove ||
+                startRelation == .RightAndBelow || endRelation == .RightAndBelow ||
+                startRelation == .LeftAndAbove || endRelation == .LeftAndAbove
+            {
+                return self.isBetween(rect.origin, and: NSMakePoint(NSMaxX(rect), NSMaxY(rect)))
+            } else {
+                return self.isBetween(NSMakePoint(NSMaxX(rect), NSMinY(rect)), and: NSMakePoint(NSMinX(rect), NSMaxY(rect)))
+            }
+        }
+    }
+    
+    private func relation(point: NSPoint, toRect rect: NSRect) -> PointToRectangleRelation {
+        var relation = PointToRectangleRelation.Inside;
+        if point.x < NSMinX(rect) {
+                relation = relation | .Left;
+        } else if point.x > NSMaxX(rect) {
+            relation = relation | .Right;
+        }
+        if point.y < NSMinY(rect) {
+            relation = relation | .Below;
+        } else if point.y > NSMaxY(rect) {
+            relation = relation | .Above;
+        }
+        return relation
+    }
+    
+    private func isBetween(a: NSPoint, and b: NSPoint) -> Bool {
+        return self.sideOfPoint(a) + self.sideOfPoint(b) == 0;
+    }
+    
+    private func sideOfPoint(point: NSPoint) -> Int {
+        let side = ((end.x-start.x)*(point.y-start.y) - (end.y-start.y)*(point.x-start.x))
+        return side >= 0 ? 1 : -1;
     }
 }

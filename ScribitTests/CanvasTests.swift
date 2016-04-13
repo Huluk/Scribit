@@ -26,11 +26,11 @@ class CanvasTests: XCTestCase {
     
     func testAddLine() {
         let event = NSEvent.mouseEventWithType(.MouseMoved, location: NSPoint(), modifierFlags: [], timestamp: NSTimeInterval(), windowNumber: 0, context: nil, eventNumber: 0, clickCount: 0, pressure: 0.0)
-        XCTAssertEqual(canvas.currentPage().lines.count, 0)
+        XCTAssertEqual(canvas.currentPage.lines.count, 0)
         canvas.mouseDown(event!)
-        XCTAssertEqual(canvas.currentPage().lines.count, 1)
+        XCTAssertEqual(canvas.currentPage.lines.count, 1)
         canvas.document.undoManager?.undo()
-        XCTAssertEqual(canvas.currentPage().lines.count, 0)
+        XCTAssertEqual(canvas.currentPage.lines.count, 0)
     }
     
 }

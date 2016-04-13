@@ -144,6 +144,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="WRV-NI-Exz"/>
+                            <menuItem title="Select" keyEquivalent="v" id="WAs-t1-gL3">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="makeRectangleSelection:" target="-1" id="6AB-2j-Eaw"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG">
                                 <connections>
                                     <action selector="cut:" target="-1" id="YJe-68-I9s"/>

@@ -44,7 +44,8 @@ class WTView : NSView {
         window!.acceptsMouseMovedEvents = true
     
         //Must register to be notified when device come in and out of Prox
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleProximity:", name: kProximityNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:#selector(WTView.handleProximity(_:)), name: kProximityNotification, object: nil)
     }
     
     private func handleMouseEvent(mouseEvent: NSEvent) {
@@ -96,57 +97,44 @@ class WTView : NSView {
         return true
     }
 
-    /*
-    // - (void) handleProximity:(NSNotification *)proxNotice
-    
-    // The proximity notification is based on the Proximity Event.
-    // (see CarbonEvents.h). The proximity notification will give you detailed
-    // information about the device that was either just placed on, or just
-    // taken off of the tablet.
-    //
-    // In this sample code, the Proximity notification is used to determine if
-    // the pen TIP or ERASER is being used. This information is not provided in
-    // the embedded tablet event.
-    //
-    // Also, on the Intous line of tablets, each transducer has a unique ID,
-    // even when different transducers are of the same type. We get that
-    // information here so we can keep track of the Color assigned to each
-    // transducer.
-    //
-    - (void) handleProximity:(NSNotification *)proxNotice
-    {
-    NSDictionary *proxDict = [proxNotice userInfo];
-    UInt8	enterProximity;
-    UInt8 pointerType;
-    UInt16 deviceID;
-    UInt16 pointerID;
-    
-    [[proxDict objectForKey:kEnterProximity] getValue:&enterProximity];
-    [[proxDict objectForKey:kPointerID] getValue:&pointerID];
-    
-    // Only interested in Enter Proximity for 1st concurrent device
-    if(enterProximity != 0 && pointerID == 0)
-    {
-    [[proxDict objectForKey:kPointerType] getValue:&pointerType];
-    erasing = (pointerType == EEraser);
-    
-    [[proxDict objectForKey:kDeviceID] getValue:&deviceID];
-    
-    if ([knownDevices setCurrentDeviceByID: deviceID] == NO)
-    {
-    //must be a new device
-    Transducer *newDevice = [[Transducer alloc]
-    initWithIdent: deviceID
-    color: [NSColor blackColor]];
-    
-    [knownDevices addDevice:newDevice];
-    [knownDevices setCurrentDeviceByID: deviceID];
+    func handleProximity(proxNotice: NSNotification) {
+        // The proximity notification is based on the Proximity Event.
+        // (see CarbonEvents.h). The proximity notification will give you detailed
+        // information about the device that was either just placed on, or just
+        // taken off of the tablet.
+        //
+        // In this sample code, the Proximity notification is used to determine if
+        // the pen TIP or ERASER is being used. This information is not provided in
+        // the embedded tablet event.
+        //
+        // Also, on the Intous line of tablets, each transducer has a unique ID,
+        // even when different transducers are of the same type. We get that
+        // information here so we can keep track of the Color assigned to each
+        // transducer.
+        
+        let proxDict = proxNotice.userInfo!
+        
+        let enterProximity = (proxDict[kEnterProximity] as! NSNumber).unsignedCharValue
+        let pointerID = (proxDict[kPointerID] as! NSNumber).unsignedShortValue
+        
+        // Only interested in Enter Proximity for 1st concurrent device
+        if enterProximity != 0 && pointerID == 0 {
+            let pointerType = EPointerType(proxDict[kPointerType]!.unsignedIntValue!)
+            if pointerType == EEraser {
+                // TODO set draw type erase
+            }
+            
+            let deviceID = proxDict[kDeviceID]!.unsignedShortValue
+            
+            if knownDevices.setCurrentDeviceByID(deviceID) == false {
+                //must be a new device
+                let newDevice = Transducer(ident: deviceID, color: NSColor.blackColor())
+                
+                knownDevices.addDevice(newDevice)
+                knownDevices.setCurrentDeviceByID(deviceID)
+            }
+
+            NSNotificationCenter.defaultCenter().postNotificationName(WTViewUpdatedNotification, object: self)
+        }
     }
-    
-    [[NSNotificationCenter defaultCenter]
-    postNotificationName:WTViewUpdatedNotification
-    object: self];
-    }
-    }
-*/
 }

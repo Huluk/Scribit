@@ -9,7 +9,9 @@
 import Cocoa
 
 enum BrushType : Int {
-    case Pen = 2, Highlighter = 0, Eraser = -1
+    case Pen = 2, Highlighter = 0, Eraser = -3,
+    // for testing only
+    CroppedPen = 3, CroppedHighlighter = 1
 }
 
 class Brush: NSObject,NSCoding {

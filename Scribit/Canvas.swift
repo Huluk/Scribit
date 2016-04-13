@@ -12,6 +12,7 @@ class Canvas: WTView {
     let margin:CGFloat = 300
     
     @IBOutlet var document: Document!
+    @IBOutlet var delegate: CanvasWindowController!
     
     var currentPageIndex = 0
     var currentBrushIndex = 0
@@ -26,23 +27,39 @@ class Canvas: WTView {
     
     override func mouseDown(theEvent: NSEvent) {
         super.mouseDown(theEvent)
-        currentLine = Line(brush: currentBrush)
-        document!.addLineOnPage(line: currentLine!, page: currentPage)
+        if delegate.cursorMode == .Draw {
+            currentLine = Line(brush: currentBrush)
+            document!.addLine(currentLine!, onPage: currentPage)
+        } else if delegate.cursorMode == .RectSelect {
+            delegate.selectionView!.origin = mousePosition
+        } else if delegate.cursorMode == .Selected {
+            delegate.cursorMode = .Dragging
+            window!.invalidateCursorRectsForView(self) // change cursor
+        }
     }
     
     override func mouseDragged(theEvent: NSEvent) {
         let previousMousePosition = mousePosition
         super.mouseDragged(theEvent)
-        if currentLine == nil { mouseDown(theEvent) }
-        let newLineSegment = LineSegment(
-            start: previousMousePosition, end: mousePosition, pressure: penPressure)
-        currentLine!.addSegment(newLineSegment)
-        pageView(currentPage).updateLine(currentLine!)
-        setNeedsDisplayInRect(newLineSegment.bounds)
+        if delegate.cursorMode == .Draw {
+            if currentLine == nil { mouseDown(theEvent) }
+            let newLineSegment = LineSegment(
+                start: previousMousePosition, end: mousePosition, pressure: penPressure)
+            currentLine!.addSegment(newLineSegment)
+            pageView(currentPage).updateLine(currentLine!)
+            setNeedsDisplayInRect(newLineSegment.bounds)
+        } else if delegate.cursorMode == .RectSelect {
+            delegate.selectionView!.selectTo(mousePosition)
+        } else if delegate.cursorMode == .Dragging {
+            // TODO later: not only on current page
+            pageView(currentPage).moveCropLayers(
+                mousePosition.x-previousMousePosition.x,
+                mousePosition.y-previousMousePosition.y)
+        }
         
         /*var keepDragging = true
         while (keepDragging) {
-            if let event = self.window!.nextEventMatchingMask(
+            if let event = window!.nextEventMatchingMask(
                 Int(NSEventMask.LeftMouseUpMask.union(.LeftMouseDraggedMask).rawValue))
             {
                 switch(event.type) {
@@ -57,10 +74,20 @@ class Canvas: WTView {
     override func mouseUp(theEvent: NSEvent) {
         let previousMousePosition = mousePosition
         super.mouseUp(theEvent)
-        currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
-        currentLine!.finishDrawing()
-        pageView(currentPage).refreshLine(currentLine!)
-        currentLine = nil
+        if delegate.cursorMode == .Draw {
+            currentLine!.addSegment(LineSegment(start: previousMousePosition, end: mousePosition, pressure: penPressure))
+            currentLine!.finishDrawing()
+            pageView(currentPage).refreshLine(currentLine!)
+            currentLine = nil
+        } else if delegate.cursorMode == .RectSelect {
+            delegate.cursorMode = .Selected
+            document.select(rect: delegate.selectionView!.selection, additive: true) // TODO cleanup
+            window!.invalidateCursorRectsForView(self) // change cursor
+        } else if delegate.cursorMode == .Dragging {
+            // TODO change lines
+            delegate.cursorMode = .Selected
+            window!.invalidateCursorRectsForView(self) // change cursor
+        }
     }
     
     /*
@@ -90,6 +117,11 @@ class Canvas: WTView {
         addSubview(pageView(currentPage))
     }
     
+    func clearPageCache(page: Page) {
+        pageViews[page] = PageView(page: page, frame: bounds)
+        if page == currentPage { reload() }
+    }
+    
     func rescale(targetSize: NSSize) {
         let desktop = NSMakeRect(0, 0,
             targetSize.width + 2*margin,
@@ -101,7 +133,7 @@ class Canvas: WTView {
     }
     
     func addLine(line: Line, onPage pageIndex: Int) {
-        pageView(document.pages[pageIndex]).addLine(line)
+        pageView(document.pages[pageIndex]).addLine(line, layer: line.type.rawValue)
         if (pageIndex != currentPageIndex) {
             goToPage(pageIndex)
         }
@@ -134,6 +166,20 @@ class Canvas: WTView {
             return true
         } else {
             return false
+        }
+    }
+    
+    override func resetCursorRects() {
+        switch (delegate.cursorMode) {
+        case .Draw:
+            // TODO make beautiful drawing cursor or something
+            break
+        case .RectSelect:
+            addCursorRect(visibleRect, cursor:NSCursor.crosshairCursor())
+        case .Selected:
+            addCursorRect(visibleRect, cursor:NSCursor.openHandCursor())
+        case .Dragging:
+            addCursorRect(visibleRect, cursor:NSCursor.closedHandCursor())
         }
     }
     

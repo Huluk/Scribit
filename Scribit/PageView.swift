@@ -12,6 +12,7 @@ class PageView: NSView {
     unowned let page: Page
     var lineViews = [Line : LineView]()
     var layers: [NSView]
+    var cropTransform = NSAffineTransform()
     
     init(page: Page, frame: NSRect) {
         self.page = page
@@ -20,16 +21,21 @@ class PageView: NSView {
         for layer in layers {
             addSubview(layer)
         }
+        for (n, layer) in page.lines.enumerate() {
+            for line in layer {
+                addLine(line, layer: n)
+            }
+        }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addLine(line: Line) {
+    func addLine(line: Line, layer: Int) {
         let lineView = LineView(line: line, frame: bounds)
         lineViews[line] = lineView
-        layers[line.type.rawValue].addSubview(lineView)
+        layers[layer].addSubview(lineView)
     }
     
     func deleteLine(line: Line) {
@@ -43,6 +49,15 @@ class PageView: NSView {
     
     func refreshLine(line: Line) {
         lineViews[line]!.refresh()
+    }
+    
+    func moveCropLayers(dx: CGFloat, _ dy: CGFloat) {
+        cropTransform.translateXBy(dx, yBy: dy)
+        for (n, layer) in layers.enumerate() {
+            if n % 2 == 1 {
+                layer.setFrameOrigin(cropTransform.transformPoint(bounds.origin))
+            }
+        }
     }
 
     override func drawRect(dirtyRect: NSRect) {

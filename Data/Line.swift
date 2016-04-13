@@ -12,27 +12,37 @@ class Line: NSObject, NSCoding {
     // number of line segments which are used to calculate the current bezier path while drawing
     let concurrentDrawingContext = 3
     
-    var segments = [LineSegment]()
+    var segments: [LineSegment]
     var brush: Brush
     var type:BrushType { return brush.type }
-    var coordTransformLocalToGlobal: NSAffineTransform
+    var coordTransformGlobalToLocal: NSAffineTransform
     private(set) var final = false
     
-    init(brush: Brush) {
+    convenience init(line: Line, segmentRange: Range<Int>) {
+        let segments = [LineSegment](line.segments[segmentRange])
+        self.init(brush: line.brush, segments: segments, transform: line.coordTransformGlobalToLocal)
+    }
+    
+    convenience init(brush: Brush) {
+        self.init(brush: brush, segments: [], transform: NSAffineTransform())
+    }
+    
+    init(brush: Brush, segments: [LineSegment], transform: NSAffineTransform) {
         self.brush = brush
-        self.coordTransformLocalToGlobal = NSAffineTransform()
+        self.segments = segments
+        self.coordTransformGlobalToLocal = transform
     }
     
     required init(coder: NSCoder) {
         self.segments = coder.decodeObject() as! [LineSegment]
         self.brush = coder.decodeObject() as! Brush
-        self.coordTransformLocalToGlobal = coder.decodeObject() as! NSAffineTransform
+        self.coordTransformGlobalToLocal = coder.decodeObject() as! NSAffineTransform
     }
     
     func encodeWithCoder(coder: NSCoder) {
         coder.encodeObject(segments)
         coder.encodeObject(brush)
-        coder.encodeObject(coordTransformLocalToGlobal)
+        coder.encodeObject(coordTransformGlobalToLocal)
     }
     
     func addSegment(segment: LineSegment) {
@@ -62,12 +72,11 @@ class Line: NSObject, NSCoding {
     func finishDrawing() {
         let bounds = internalBounds()
         let center = NSMakePoint(NSMinX(bounds)+NSWidth(bounds)/2, NSMinY(bounds)+NSHeight(bounds)/2)
-        coordTransformLocalToGlobal.translateXBy(center.x, yBy: center.y)
-        let globalToLocal = NSAffineTransform(transform: coordTransformLocalToGlobal)
-        globalToLocal.invert()
+        coordTransformGlobalToLocal.translateXBy(center.x, yBy: center.y)
+        coordTransformGlobalToLocal.invert()
         for segment in segments {
-            segment.start = globalToLocal.transformPoint(segment.start)
-            segment.end = globalToLocal.transformPoint(segment.end)
+            segment.start = coordTransformGlobalToLocal.transformPoint(segment.start)
+            segment.end = coordTransformGlobalToLocal.transformPoint(segment.end)
         }
         interpolateCurves(segments) // implicitly takes care of control point transform
     }
@@ -83,7 +92,32 @@ class Line: NSObject, NSCoding {
         return NSRect(origin: drawingOrigin, size: drawingSize)
     }
     
+    func intersectingSegmentRanges(rect: NSRect) -> (inside: [Range<Int>], outside: [Range<Int>]) {
+        var result = [[Range<Int>](), [Range<Int>]()]
+        if (segments.isEmpty) { return ([], []) }
+        let localRect = NSRect(
+            origin: coordTransformGlobalToLocal.transformPoint(rect.origin),
+            size: coordTransformGlobalToLocal.transformSize(rect.size))
+        var intersecting = segments[0].intersectsRect(localRect)
+        var currentStartIndex = 0
+        for (index, segment) in segments.enumerate() {
+            if segment.intersectsRect(localRect) != intersecting {
+                result[Int(intersecting)].append(currentStartIndex..<index)
+                intersecting = !intersecting
+                currentStartIndex = index
+            }
+        }
+        if currentStartIndex < segments.count {
+            result[Int(intersecting)].append(currentStartIndex..<segments.count)
+        }
+        return (inside: result[1], outside: result[0])
+    }
+    
     var widestSize: CGFloat { return brush.widestSize }
+    
+    func defaultLayer() -> Int {
+        return type.rawValue
+    }
     
     // Algorithm by Oleg V. Polikarpotchkin and Peter Lee, 24 Mar 2009
     // http://www.codeproject.com/Articles/31859/Draw-a-Smooth-Curve-through-a-Set-of-D-Points-wit
@@ -99,7 +133,7 @@ class Line: NSObject, NSCoding {
         if (n == 1) { return }
         
         var firstControlPoints = getFirstControlPoints(segments)
-        for (var i = 0; i < n; i++) {
+        for i in 0..<n {
             var secondControlPoint: NSPoint
             if (i + 1 < n) {
                 let nextPoint = segments[i+1].start
@@ -125,7 +159,7 @@ class Line: NSObject, NSCoding {
         y.append(segments.last!.end.y)
         x = getCoordOfFirstControlPoints(getRHSVector(x))
         y = getCoordOfFirstControlPoints(getRHSVector(y))
-        for (var i = 0; i < n; i++) {
+        for i in 0..<n {
             firstControlPoints[i] = NSMakePoint(x[i], y[i]);
         }
         return firstControlPoints
@@ -134,7 +168,7 @@ class Line: NSObject, NSCoding {
     private func getRHSVector(coords: [CGFloat]) -> [CGFloat] {
         let n = coords.count - 1
         var rhs = Array<CGFloat>(count: n, repeatedValue: CGFloat.NaN)
-        for (var i = 1; i + 1 < n; i++) {
+        for i in 1..<n {
             rhs[i] = 4 * coords[i] + 2 * coords[i + 1]
         }
         rhs[0] = coords[0] + 2 * coords[1]
@@ -148,12 +182,12 @@ class Line: NSObject, NSCoding {
         var tmp = Array<CGFloat>(count: n, repeatedValue: CGFloat.NaN)
         var b:CGFloat = 2.0
         x[0] = rhs[0] / b
-        for (var i = 1; i < n; i++) { // Decomposition and forward substitution.
+        for i in 1..<n { // Decomposition and forward substitution.
             tmp[i] = 1 / b
             b = (i < n - 1 ? 4.0 : 3.5) - tmp[i]
             x[i] = (rhs[i] - x[i - 1]) / b
         }
-        for (var i = 1; i < n; i++) {
+        for i in 1..<n {
             x[n - i - 1] -= tmp[n - i] * x[n - i] // Backsubstitution.
         }
         return x

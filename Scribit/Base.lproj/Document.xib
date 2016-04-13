@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CanvasWindowController" customModule="Scribit" customModuleProvider="target">
@@ -27,7 +27,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="80" y="90" width="860" height="660"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
-            <view key="contentView" id="hUC-Pi-t49">
+            <view key="contentView" wantsLayer="YES" id="hUC-Pi-t49">
                 <rect key="frame" x="0.0" y="0.0" width="860" height="660"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -45,6 +45,9 @@
                                         <customView id="rNr-4h-xkl" customClass="Canvas" customModule="Scribit" customModuleProvider="target">
                                             <rect key="frame" x="150" y="150" width="560" height="360"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-2" id="BR7-0Y-7NY"/>
+                                            </connections>
                                         </customView>
                                     </subviews>
                                 </view>

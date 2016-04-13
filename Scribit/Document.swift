@@ -51,17 +51,17 @@ class Document: NSDocument {
         return true
     }
     
-    func addLineOnPage(line line: Line, page: Page) {
+    func addLine(line: Line, onPage page: Page) {
         page.addLine(line)
         canvas.addLine(line, onPage: pageIndex(page)!)
-        undoManager!.prepareWithInvocationTarget(self).deleteLineOnPage(line: line, page: page)
+        undoManager!.prepareWithInvocationTarget(self).deleteLine(line, onPage: page)
         undoManager!.setActionName(NSLocalizedString("Add Line", comment: "undo add line"))
     }
     
-    func deleteLineOnPage(line line: Line, page: Page) {
+    func deleteLine(line: Line, onPage page: Page) {
         canvas.deleteLine(line, onPage: pageIndex(page)!)
         page.deleteLine(line)
-        undoManager!.prepareWithInvocationTarget(self).addLineOnPage(line: line, page: page)
+        undoManager!.prepareWithInvocationTarget(self).addLine(line, onPage: page)
         undoManager!.setActionName(NSLocalizedString("Delete Line", comment: "undo delete line"))
     }
     
@@ -86,6 +86,17 @@ class Document: NSDocument {
         } else {
             canvas.reload()
         }
+    }
+    
+    func select(rect rect: NSRect, additive: Bool) {
+        undoManager!.beginUndoGrouping()
+        undoManager!.setActionName(NSLocalizedString("Select Rectangle", comment: "undo select rect"))
+        let page = canvas.currentPage
+        if (!additive) { page.uncropAll(undoManager: undoManager!) }
+        page.crop(rect: rect, undoManager: undoManager!)
+        undoManager!.endUndoGrouping()
+        // TODO once we allow for multi-page crop we have to clear all page caches
+        canvas.clearPageCache(page)
     }
 
     override func makeWindowControllers() {

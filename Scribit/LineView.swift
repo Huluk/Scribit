@@ -37,9 +37,7 @@ class LineView: NSView {
     }
     
     func setBoundsOrigin() {
-        let globalToLocal = NSAffineTransform(transform: line.coordTransformLocalToGlobal)
-        globalToLocal.invert()
-        let center = globalToLocal.transformPoint(NSPoint())
+        let center = line.coordTransformGlobalToLocal.transformPoint(NSPoint())
         setBoundsOrigin(NSMakePoint(center.x, center.y))
     }
     
