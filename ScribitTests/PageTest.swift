@@ -91,7 +91,7 @@ class PageTest: XCTestCase {
     
     func testCrop() {
         let lineIn = MockLine(layer: 0, segments: [1])
-        let lineHalf = MockLine(layer: 2, segments: [1, 1, 1, 0, 0 ,0, 0])
+        let lineHalf = MockLine(layer: 2, segments: [1, 1, 1, 0, 0 ,0, 0, 0, 1, 0, 0])
         let lineOut = MockLine(layer: 2, segments: [0])
         let lineExtra = MockLine(0)
         page.lines = [[lineIn], [lineExtra], [lineOut, lineHalf], []]
@@ -99,10 +99,12 @@ class PageTest: XCTestCase {
         page.crop(rect: NSRect(), undoManager: undoManager)
         XCTAssertTrue(page.lines[0].isEmpty)
         XCTAssertEqual([lineExtra, lineIn], page.lines[1])
-        XCTAssertEqual(2, page.lines[2].count)
+        XCTAssertEqual(3, page.lines[2].count)
         XCTAssertEqual(lineOut, page.lines[2][0])
-        XCTAssertEqual(4, page.lines[2][1].segments.count)
-        XCTAssertEqual(1, page.lines[3].count)
+        XCTAssertEqual(5, page.lines[2][1].segments.count)
+        XCTAssertEqual(2, page.lines[2][2].segments.count)
+        XCTAssertEqual(2, page.lines[3].count)
         XCTAssertEqual(3, page.lines[3][0].segments.count)
+        XCTAssertEqual(1, page.lines[3][1].segments.count)
     }
 }

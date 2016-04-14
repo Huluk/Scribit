@@ -12,6 +12,8 @@
 "Delete Page" = "Delete Page";
 "Default Pen" = "Default Pen";
 "Select Rectangle" = "Select Rectangle";
+"Move Selection" = "Move Selection";
+"Unselect All" = "Unselect All";
 "page x of y" = "(page %1$@ of %2$@)";
 "Portrait" = "Portrait";
 "Landscape" = "Landscape";

@@ -53,10 +53,22 @@ class PageView: NSView {
     
     func moveCropLayers(dx: CGFloat, _ dy: CGFloat) {
         cropTransform.translateXBy(dx, yBy: dy)
-        for (n, layer) in layers.enumerate() {
-            if n % 2 == 1 {
-                layer.setFrameOrigin(cropTransform.transformPoint(bounds.origin))
-            }
+        for n in page.cropLayerIndices {
+            layers[n].setFrameOrigin(cropTransform.transformPoint(bounds.origin))
+        }
+    }
+    
+    func resetCropLayers() {
+        cropTransform = NSAffineTransform()
+        for n in page.cropLayerIndices {
+            layers[n].setFrameOrigin(bounds.origin)
+            layers[n].needsDisplay = true
+        }
+    }
+    
+    func moveLines() {
+        for lineView in lineViews.values {
+            lineView.setBoundsOrigin()
         }
     }
 

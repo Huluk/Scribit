@@ -68,9 +68,16 @@ class Page: NSObject, NSCoding {
         return lines.flatten()
     }
     
+    func transformCropped(transform: NSAffineTransform) {
+        for n in cropLayerIndices {
+            for line in lines[n] {
+                line.coordTransformGlobalToLocal.prependTransform(transform)
+            }
+        }
+    }
+    
     func crop(rect rect: NSRect, undoManager: NSUndoManager) {
-        for n in 0..<Page.layerCount {
-            if (n % 2 == 1) { continue }
+        for n in baseLayerIndices {
             var keepInLayer = [Line]()
             for line in lines[n] {
                 let (inside: ins, outside: outs) = line.intersectingSegmentRanges(rect)
@@ -82,8 +89,9 @@ class Page: NSObject, NSCoding {
                 } else {
                     undoManager.prepareWithInvocationTarget(self).addLine(line)
                     addSplits(line, ins, crop: true, undoManager: undoManager)
+                    let oldElementCount = lines[n].count
                     addSplits(line, outs, crop: false, undoManager: undoManager)
-                    keepInLayer.append(lines[n].last!)
+                    keepInLayer.appendContentsOf(lines[n][oldElementCount..<lines[n].count])
                 }
             }
             lines[n] = keepInLayer
@@ -98,14 +106,32 @@ class Page: NSObject, NSCoding {
     }
     
     func uncropAll(undoManager undoManager: NSUndoManager) {
-        for n in 0..<Page.layerCount {
-            if n % 2 == 1 { // crop layer
-                for line in lines[n] {
-                    uncropLine(line)
-                    undoManager.prepareWithInvocationTarget(self).cropLine(line)
-                }
+        for n in cropLayerIndices {
+            for line in lines[n] {
+                uncropLine(line)
+                undoManager.prepareWithInvocationTarget(self).cropLine(line)
             }
         }
+    }
+    
+    var cropLayerIndices: [Int] {
+        var indices = [Int]()
+        for n in 0..<Page.layerCount {
+            if n % 2 == 1 {
+                indices.append(n)
+            }
+        }
+        return indices
+    }
+    
+    var baseLayerIndices: [Int] {
+        var indices = [Int]()
+        for n in 0..<Page.layerCount {
+            if n % 2 == 0 {
+                indices.append(n)
+            }
+        }
+        return indices
     }
     
     func encodeWithCoder(coder: NSCoder) {

@@ -21,6 +21,8 @@ class Document: NSDocument {
     var pages = [Page]()
     var brushes = (NSApp.delegate as! AppDelegate).brushes
     
+    var numSelections = 0
+    
     var fileUnarchiver: NSKeyedUnarchiver?
 
     override func windowControllerDidLoadNib(aController: NSWindowController) {
@@ -97,6 +99,26 @@ class Document: NSDocument {
         undoManager!.endUndoGrouping()
         // TODO once we allow for multi-page crop we have to clear all page caches
         canvas.clearPageCache(page)
+        numSelections += 1
+    }
+    
+    func unselectAll() {
+        undoManager!.beginUndoGrouping()
+        undoManager!.setActionName(NSLocalizedString("Unselect All", comment: "undo unselect"))
+        for page in pages {
+            page.uncropAll(undoManager: undoManager!)
+        }
+        undoManager!.endUndoGrouping()
+    }
+    
+    func transformSelection(transform: NSAffineTransform) {
+        undoManager!.setActionName(NSLocalizedString("Move Selection", comment: "move crop layers"))
+        let inverseTransform = NSAffineTransform(transform: transform)
+        inverseTransform.invert()
+        undoManager!.prepareWithInvocationTarget(self).transformSelection(transform)
+        for page in pages {
+            page.transformCropped(inverseTransform)
+        }
     }
 
     override func makeWindowControllers() {

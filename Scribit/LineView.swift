@@ -32,13 +32,13 @@ class LineView: NSView {
     
     func refresh() {
         content = line.drawingContent(fromIndex: 0)
-        needsDisplay = true
         setBoundsOrigin()
     }
     
     func setBoundsOrigin() {
         let center = line.coordTransformGlobalToLocal.transformPoint(NSPoint())
-        setBoundsOrigin(NSMakePoint(center.x, center.y))
+        setBoundsOrigin(center)
+        needsDisplay = true
     }
     
     override func drawRect(dirtyRect: NSRect) {

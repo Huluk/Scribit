@@ -84,8 +84,16 @@ class Canvas: WTView {
             document.select(rect: delegate.selectionView!.selection, additive: true) // TODO cleanup
             window!.invalidateCursorRectsForView(self) // change cursor
         } else if delegate.cursorMode == .Dragging {
-            // TODO change lines
             delegate.cursorMode = .Selected
+            let transform = pageView(currentPage).cropTransform
+            if transform == NSAffineTransform() { // no move, unselecting
+                document.unselectAll()
+                delegate.cursorMode = .Draw
+            } else {
+                document.transformSelection(transform)
+                pageView(currentPage).resetCropLayers()
+                pageView(currentPage).moveLines() // TODO later make on all pages?
+            }
             window!.invalidateCursorRectsForView(self) // change cursor
         }
     }

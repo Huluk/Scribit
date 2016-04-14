@@ -20,7 +20,8 @@ class Line: NSObject, NSCoding {
     
     convenience init(line: Line, segmentRange: Range<Int>) {
         let segments = [LineSegment](line.segments[segmentRange])
-        self.init(brush: line.brush, segments: segments, transform: line.coordTransformGlobalToLocal)
+        let transform = NSAffineTransform(transform: line.coordTransformGlobalToLocal)
+        self.init(brush: line.brush, segments: segments, transform: transform)
     }
     
     convenience init(brush: Brush) {
